@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Table Header Styles */
+        thead th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        /* Table Row Styles */
+        tbody tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody td {
+            padding: 10px 15px;
+        }
+
+        /* Button Styles */
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+        ADMINS
+        <table>
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zipcode</th>
+                <th>Username</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (admin.length > 0) { %>
+                <% admin.forEach(row => { %>
+                  <tr>
+                    <input type="hidden" value="row.volunteer_id">
+                    <td><%= row.vol_first_name %></td>
+                    <td><%= row.vol_last_name %></td>
+                    <td><%= row.vol_email %></td>
+                    <td><%= row.vol_phone %></td>
+                    <td><%= row.vol_address %></td>
+                    <td><%= row.vol_city %></td>
+                    <td><%= row.vol_state %></td>
+                    <td><%= row.vol_zipcode %></td>
+                    <td><%= row.username %></td>
+                    <td>
+                      <form action="/editAdmin/<%= row.volunteer_id %>" method="GET" style="display:inline;">
+                        <button type="submit">Edit</button>
+                      </form>
+                    </td>
+                    <td>
+                      <form action="/deleteAdmin/<%= row.volunteer_id %>" method="POST" style="display:inline;">
+                      <button type="submit" onclick="return confirm('Are you sure you want to delete this record?');">Delete</button>
+                    </form>
+                  </td>
+                  </tr>
+                <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="7">No data available</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+    
+    <form action="/addAdmin" method="get">
+        <button type="submit">ADD ADMIN</button>
+    </form>
+    <form action="/success" method="get">
+        <button type="submit">INTERNAL LANDING PAGE</button>
+    </form>
+    <form action="/" method="get">
+        <button type="submit">HOME</button>
+    </form>
+    <form action="/eventRequests" method="get">
+        <button type="submit">EVENT REQUESTS</button>
+    </form>
+</body>
+</html>

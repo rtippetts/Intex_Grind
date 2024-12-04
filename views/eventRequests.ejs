@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Table Header Styles */
+        thead th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        /* Table Row Styles */
+        tbody tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody td {
+            padding: 10px 15px;
+        }
+
+        /* Button Styles */
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    EVENTS
+    <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Contact Organization</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (event.length > 0) { %>
+            <% event.forEach(row => { %>
+              <tr>
+                <input type="hidden" value="row.event_id">
+                <td><%= row.event_name %></td>
+                <td><%= new Date(row.event_date).toLocaleDateString() %></td>
+                <td><%= row.event_city %></td>
+                <td><%= row.event_state %></td>
+                <td>
+                    <% 
+                      const startTimeString = row.event_start_time.split('+')[0];
+                    %>
+                    <%= startTimeString %>
+                  </td>
+                  <td>
+                    <%
+                      const endTimeString = row.event_end_time.split('+')[0];
+                    %>
+                    <%= endTimeString %>
+                  </td>
+                <td><%= row.contact_org %></td>
+                <td><%= row.event_status %></td>
+                <td>
+                  <form action="/editEvent/<%= row.event_id %>" method="GET" style="display:inline;">
+                    <button type="submit" >View and Edit Event</button>
+                  </form>
+                </td>
+                <td>
+                    <form action="/deleteEvent/<%= row.event_id %>" method="POST" style="display:inline;">
+                      <button type="submit" onclick="confirm('Are you sure you want to delete this record?')">Delete Event</button>
+                    </form>
+                  </td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="7">No data available</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    <form action="/adminAddEvent" method="GET" style="display:inline;">
+        <button type="submit">Add Event</button>
+    </form>
+    <form action="/success" method="get">
+        <button type="submit">INTERNAL LANDING PAGE</button>
+    </form>
+    <form action="/admin" method="get">
+        <button type="submit">ADMIN</button>
+    </form>
+    <form action="/eventRequests" method="get">
+        <button type="submit">EVENT REQUESTS</button>
+    </form>
+    <form action="/volunteer" method="get">
+        <button type="submit">VOLUNTEERS</button>
+    </form>
+</body>
+</html>
