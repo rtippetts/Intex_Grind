@@ -44,7 +44,7 @@ The Contact Us page takes the user to a form that auto-sends an email to the adm
 
 This takes the user to the external donatation system that TSP uses.
 
-### Login Page 
+#### Login Page 
 
 This is a simple login page for admins to authenticate and gain access to organization data and events.
 
@@ -52,6 +52,7 @@ This is a simple login page for admins to authenticate and gain access to organi
 In order to login as an admin and see this page, use the following credentials:
 
   ***USERNAME: jsmith***
+  
   ***PASSWORD: password123***
 
 ### Home Page (Admin)
