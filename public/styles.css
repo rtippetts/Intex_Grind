@@ -1,0 +1,294 @@
+:root {
+    --primary-color: #21A2DB;
+    --secondary-color: #1B8ABF;
+    --text-color: #333;
+    --light-bg: #F8F9FA;
+    --nav-bg: #21A2DB;
+    --nav-link-color: #fff;
+    --nav-link-hover: #1B8ABF;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+/* Navbar Styles */
+.navbar {
+    background-color: var(--nav-bg);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+.logo {
+    color: var(--nav-link-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.logo img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+.nav-links a {
+    color: var(--nav-link-color);
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+.nav-links a:hover {
+    background-color: var(--nav-link-hover);
+}
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown-content a {
+    color: var(--primary-color);
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+}
+.dropdown-content a:hover {
+    background-color: #F8F9FA;
+    color: var(--secondary-color);
+}
+.dropdown > a::after {
+    font-size: 0.7em;
+    margin-left: 0.5rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+/* Navigation Right Section */
+.nav-right {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    margin-left: 2rem;
+}
+.donate-btn {
+    background-color: var(--nav-link-color);
+    color: var(--nav-bg);
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+.donate-btn:hover {
+    background-color: var(--nav-link-hover);
+    color: var(--nav-link-color);
+}
+.user-icon {
+    width: 30px;
+    height: 30px;
+
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    
+}
+
+.user-icon:hover {
+    transform: scale(1.1);
+  }
+
+  .user-icon-btn {
+    background: none; /* Removes the gray background */
+    border: none;     /* Removes the border */
+    padding: 0;       /* Removes any padding */
+    cursor: pointer;  /* Ensures it still looks clickable */
+    display: inline-block; /* Ensures the button behaves like the image */
+}
+
+.mobile-controls {
+    display: none;
+}
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--nav-link-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+/* Footer Styles */
+.footer {
+    background-color: var(--nav-bg);
+    color: var(--nav-link-color);
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.contact-info {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.contact-item i {
+    opacity: 0.8;
+    font-size: 1.1rem;
+}
+.contact-item a {
+    color: var(--nav-link-color);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+.contact-item a:hover {
+    opacity: 0.8;
+}
+.contact-item img {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    filter: brightness(0) invert(1);
+}
+.social-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.social-icon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.9;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.social-icon:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+/* Common Page Elements */
+.page-title {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem;
+    }
+    .nav-links {
+        display: none;
+    }
+    .nav-links.show {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--nav-bg);
+        padding: 1rem;
+        z-index: 1000;
+        align-items: flex-start;
+    }
+    .nav-links.show a {
+        color: var(--nav-link-color);
+        padding: 0.75rem 1rem;
+        width: 100%;
+        text-align: left;
+    }
+    .nav-links.show a:hover {
+        background-color: var(--nav-link-hover);
+    }
+    .nav-links.show .dropdown {
+        width: 100%;
+    }
+    .dropdown-content {
+        position: static;
+        background-color: var(--nav-link-hover);
+        box-shadow: none;
+        margin: 0;
+        width: 100%;
+        display: none;
+        border-radius: 4px;
+    }
+    .dropdown.active .dropdown-content {
+        display: block;
+    }
+    .dropdown-content a {
+        color: var(--nav-link-color) !important;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    .dropdown-content a:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        color: var(--nav-link-color) !important;
+    }
+    .dropdown > a::after {
+        float: right;
+        transition: transform 0.3s ease;
+    }
+    .dropdown.active > a::after {
+        transform: rotate(180deg);
+    }
+    .nav-right .donate-btn,
+    .nav-right .user-icon {
+        display: none;
+    }
+    .mobile-controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        order: 2;
+    }
+    .nav-toggle {
+        display: block;
+    }
+    .footer-container {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+    .contact-info {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .contact-item {
+        justify-content: center;
+    }
+}
+

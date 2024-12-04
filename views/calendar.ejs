@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Calendar</title>
+    <link rel="stylesheet" href="adminstyles.css">
+    <style>
+/* Calendar Container */
+        .calendar-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 2rem;
+        }
+
+        /* Calendar Iframe */
+        iframe {
+            width: 100%;
+            height: 700px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(33, 162, 219, 0.15);
+            background: white;
+        }
+
+        /* Page Layout */
+        body {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+            padding: 0;
+        }
+
+        /* Container Title */
+        .calendar-title {
+            color: var(--primary-color);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-container {
+                padding: 1rem;
+                margin: 1rem auto;
+            }
+            
+            iframe {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<!-- Header Component -->
+<header>
+    <nav class="navbar">
+        <form action="/success" method="get">
+            <a href="/success" class="logo" role="button">
+                <img src="Intex Pictures/logo-modified.png" alt="Turtle Shelter Logo">
+                <span>Turtle Shelter Project Admin</span>
+            </a>
+        </form>
+        <div class="nav-links">
+            <form action="/volunteer" method="GET" style="display: inline;">
+                <a href="/volunteer" role="button">Volunteer Information</a>
+            </form>
+            <form action="/eventRequests" method="GET" style="display: inline;">
+                <a href="/eventRequests" role="button">Events</a>
+            </form>
+            <form action="/calendar" method="GET" style="display: inline;">
+                <a href="/calendar" role="button">Calendar</a>
+            </form>
+            <a href="https://mail.google.com/mail/u/2/#inbox" target="_blank">Email</a>
+        </div>
+        <div class="nav-right">
+            <form action="/" method="get">
+            <a href="/" class="donate-btn" role="button">Go Back to Home</a>
+        </form>
+        
+        <form action="/login" method="get">
+            <button type="submit" class="user-icon-btn" aria-label="Go to login page">
+                <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+            </button>
+        </form>
+    </div>
+    </nav>
+</header>
+
+<body>
+    <div class="calendar-container">
+        <h1 class="calendar-title">Event Calendar</h1>
+        <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=UTC&showPrint=0&src=dGhlY29vbGJlYXJzMS44QGdtYWlsLmNvbQ&src=ZW4udXNhLm9mZmljaWFsI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%230B8043" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>    </div>
+</body>
+
+<!-- Footer Component -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="contact-info">
+            <div class="contact-item">
+                <img src="Intex Pictures/phone.png" alt="Phone Icon">
+                <a href="tel:+18018723190">801-872-3190</a>
+            </div>
+            <div class="contact-item">
+                <img src="Intex Pictures/mail.png" alt="Mail Icon">
+                <a href="mailto:turtleshelterproject@gmail.com">turtleshelterproject@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <i>📍</i>
+                <span>PO Box 382, Kaysville, UT 84037</span>
+            </div>
+        </div>
+        <div class="social-links">
+            <a href="https://facebook.com/turtleshelterproject" target="_blank" aria-label="Facebook">
+                <img src="Intex Pictures/facebook.png" alt="" class="social-icon">
+            </a>
+            <a href="https://instagram.com/turtleshelterproject" target="_blank" aria-label="Instagram">
+                <img src="Intex Pictures/instagram2.png" alt="" class="social-icon">
+            </a>
+        </div>
+    </div>
+</footer>
+
+<!-- Navigation JavaScript -->
+<script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+
+    dropdowns.forEach(dropdown => {
+        const dropdownLink = dropdown.querySelector('a');
+        
+        dropdownLink.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                dropdowns.forEach(other => {
+                    if (other !== dropdown) {
+                        other.classList.remove('active');
+                    }
+                });
+                
+                dropdown.classList.toggle('active');
+            }
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+            navLinks.classList.remove('show');
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
+    });
+</script>
+</html>

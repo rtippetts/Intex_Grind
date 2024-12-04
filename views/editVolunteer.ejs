@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Volunteer</title>
+  <style>
+    form {
+      width: 50%;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #F9F9F9;
+      font-size: 12px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    input[type="checkbox"], input[type="radio"] {
+      width: auto;
+      margin-right: 5px;
+    }
+    button {
+      background-color: #112d4e;
+      color: white;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #4571a0;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">Edit Volunteer</h1>
+  <form action="/editVolunteer/<%= volunteer.volunteer_id %>" method="POST">
+    <!-- Volunteer First and Last Name -->
+    <label for="vol_first_name">First Name</label>
+    <input type="text" id="vol_first_name" name="vol_first_name" value="<%= volunteer.vol_first_name  %>" required oninput="this.value = this.value.toUpperCase()">
+
+    <label for="vol_last_name">Last Name</label>
+    <input type="text" id="vol_last_name" name="vol_last_name" value="<%= volunteer.vol_last_name  %>" required oninput="this.value = this.value.toUpperCase()">
+    <!-- Email -->
+    <label for="vol_email">Email</label>
+    <input type="text" id="vol_email" name="vol_email" value="<%= volunteer.vol_email %>" required oninput="this.value = this.value.toUpperCase()">
+    <!-- Phone -->
+    <label for="vol_phone">Phone Number</label>
+    <input type="text" id="vol_phone" name="vol_phone" value="<%= volunteer.vol_phone %>" required>
+    <!-- Address -->
+    <label for="vol_address">Street Address</label>
+    <input type="text" id="vol_address" name="vol_address" value="<%= volunteer.vol_address %>" required oninput="this.value = this.value.toUpperCase()">
+    
+    <label for="vol_city">City</label>
+    <input type="text" id="vol_city" name="vol_city" value="<%= volunteer.vol_city %>" required oninput="this.value = this.value.toUpperCase()">
+
+    <label for="vol_state">State</label>
+    <input type="text" id="vol_state" name="vol_state" value="<%= volunteer.vol_state %>" required oninput="this.value = this.value.toUpperCase()">
+
+    <label for="vol_zipcode">Zipcode</label>
+    <input type="number" name="vol_zipcode" id="vol_zipcode" value="<%= volunteer.vol_zipcode %>">
+
+    <!-- Sewing Level -->
+    <label for="vol_sewing_level">Sewing Level</label>
+    <select id="vol_sewing_level" name="vol_sewing_level">
+        <option value="NONE" <%= volunteer.vol_sewing_level === 'NONE' ? 'selected' : '' %>>NONE</option>
+        <option value="BEGINNER" <%= volunteer.vol_sewing_level === 'BEGINNER' ? 'selected' : '' %>>BEGINNER</option>
+        <option value="INTERMEDIATE" <%= volunteer.vol_sewing_level === 'INTERMEDIATE' ? 'selected' : '' %>>INTERMEDIATE</option>
+        <option value="EXPERT" <%= volunteer.vol_sewing_level === 'EXPERT' ? 'selected' : '' %>>EXPERT</option>
+    </select>
+
+    <!-- Available Hours -->
+    <label for="vol_available_monthly_hours">Available Monthly Hours</label>
+    <input type="number" name="vol_available_monthly_hours" id="vol_available_monthly_hours" value="<%= volunteer.vol_available_monthly_hours %>">
+
+    <!-- Finding Source -->
+    <label for="vol_finding_source">Finding Source</label>
+    <select id="vol_finding_source" name="vol_finding_source">
+      <% finding_source.forEach(type => { %>
+        <option value="<%= type.source_id %>" <%= volunteer.vol_finding_source === type.source_id ? 'selected' : '' %>>
+          <%= type.source_type %>
+        </option>
+      <% }) %>
+    </select>
+
+    <!-- Submit Button -->
+    <button type="submit">Save Changes</button>
+    
+  </form>
+</body>
+</html>

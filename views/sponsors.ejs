@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Sponsors - Turtle Shelter Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Sponsors Page Styles */
+        .sponsors-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        .sponsors-description {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .sponsors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 0 auto;
+        }
+
+        .sponsor-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 16/9;
+        }
+
+        .sponsor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .sponsor-card img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .sponsors-container {
+                padding: 2rem 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .sponsors-description {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .sponsors-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <form action="/">
+                <a href="/" class="logo" role="button">
+                    <img src="/Intex Pictures/logo-modified.png" alt="Turtle Shelter Logo">
+                    <span>Turtle Shelter Project</span>
+                </a>
+            </form>
+            <div class="nav-links">
+                <form action="/" method="GET" style="display: inline;">
+                    <a href="/" role="button">Home</a>
+                </form>
+                <form action="/jensStory" method="get" style="display: inline;">
+                    <a href="/jensStory" role="button">Jen's Story</a>
+                </form>
+                <form action="/help" method="get" style="display: inline;">
+                <div class="dropdown"> 
+                    <a href="/help" role="button">How You Can Help</a>
+                </form>
+                </div>
+                <form action="/sponsors" method="get" style="display: inline;">
+                    <a href="/sponsors" role="button">Our Sponsors</a>
+                </form>
+                <form action="/contactUs" method="get" style="display: inline;">
+                    <a href="/contactUs" role="button">Contact Us</a>
+                </form>
+            </div>
+            <form action="/donate">
+            <div class="nav-right">
+                    <a href="https://turtleshelterproject.org/checkout/donate?donatePageId=5b6a44c588251b72932df5a0" class="donate-btn" role="button">Donate</a>
+                </form>
+                <form action="/login" method="get">
+                    <button type="submit" class="user-icon-btn" aria-label="Go to login page">
+                        <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+                    </button>
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="sponsors-container">
+        <h1 class="page-title">Our Valued Sponsors</h1>
+        
+        <div class="sponsors-description">
+            <p>We are grateful for the generous support of our sponsors who help make our mission possible. <b>Click</b> on any logo to visit our sponsor's website and learn more about their commitment to our community.</p>
+        </div>
+
+        <div class="sponsors-grid">
+            <a href="https://www.softminkyblankets.com/" class="sponsor-card" target="_blank">
+                <img src="Intex Pictures/minkylogo.webp" alt="Minky Couture">
+            </a>
+            <a href="https://designsourceslc.com/" class="sponsor-card" target="_blank">
+                <img src="Intex Pictures/designsource.png" alt="Design Source">
+            </a>
+            <a href="https://www.cheneybrothersconstruction.com/" class="sponsor-card" target="_blank">
+                <img src="Intex Pictures/cheneybrothers.png" alt="Cheney Brothers Construction">
+            </a>
+            <a href="http://www.givemeachanceutah.org/" class="sponsor-card" target="_blank">
+                <img src="Intex Pictures/givemeachance.gif" alt="Give Me A Chance">
+            </a>
+            <a href="https://www.futurefoam.com/" class="sponsor-card" target="_blank">
+                <img src="Intex Pictures/futurefoam.png" alt="Future Foam">
+            </a>
+            <a href="https://www.owfinc.com/" class="sponsor-card" target="_blank">
+                <img src="Intex Pictures/outdoorfabric.jpg" alt="Outdoor Wilderness Fabrics">
+            </a>
+            <a href="https://www.goodshepherdogden.org/" class="sponsor-card" target="_blank">
+                <img src="Intex Pictures/church.png" alt="Episcopal Church of the Good Shepherd">
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <img src="Intex Pictures/phone.png" alt="Phone Icon">
+                    <a href="tel:+18018723190">801-872-3190</a>
+                </div>
+                <div class="contact-item">
+                    <img src="Intex Pictures/mail.png" alt="Mail Icon">
+                    <a href="mailto:turtleshelterproject@gmail.com">turtleshelterproject@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <i>📍</i>
+                    <span>PO Box 382, Kaysville, UT 84037</span>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="https://facebook.com/turtleshelterproject" target="_blank" aria-label="Facebook">
+                    <img src="Intex Pictures/facebook.png" alt="" class="social-icon">
+                </a>
+                <a href="https://instagram.com/turtleshelterproject" target="_blank" aria-label="Instagram">
+                    <img src="Intex Pictures/instagram2.png" alt="" class="social-icon">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Navigation JavaScript -->
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const dropdowns = document.querySelectorAll('.dropdown');
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+
+        dropdowns.forEach(dropdown => {
+            const dropdownLink = dropdown.querySelector('a');
+            
+            dropdownLink.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    dropdowns.forEach(other => {
+                        if (other !== dropdown) {
+                            other.classList.remove('active');
+                        }
+                    });
+                    
+                    dropdown.classList.toggle('active');
+                }
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+                navLinks.classList.remove('show');
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
