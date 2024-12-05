@@ -678,4 +678,19 @@ app.post('/adminSubmitEvent', async (req, res) => {
     }
 });
 
+//logout functionality
+
+app.get('/logout', (req, res) => {
+    // Destroy the user's session
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error destroying session:', err);
+        return res.status(500).send('Error logging out');
+      }
+  
+      // Redirect the user to the homepage
+      return res.redirect('/');
+    });
+  });
+
 app.listen(port, () => console.log('Listening...'));

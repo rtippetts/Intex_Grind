@@ -136,18 +136,28 @@
                     </form>
                 <% } %>
             </div>
-            <div class="nav-right">
-                <% if (!locals.user || user.vol_type === 'B') { %>
-                    <form action="/donate">
-                        <a href="https://turtleshelterproject.org/checkout/donate?donatePageId=5b6a44c588251b72932df5a0" class="donate-btn" role="button">Donate</a>
-                    </form>
-                <% } %>
-                <form action="/login" method="get">
-                    <button type="submit" class="user-icon-btn" aria-label="Go to login page">
-                        <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
-                    </button>
-                </form>
-            </div>
+        <!--Right elements - login icon and donate-->
+        <div class="nav-right">
+            <% if (!locals.user || user.vol_type === 'B') { %>
+              <form action="/donate">
+                <a href="https://turtleshelterproject.org/checkout/donate?donatePageId=5b6a44c588251b72932df5a0" class="donate-btn" role="button">Donate</a>
+              </form>
+              <form action="/login" method="get">
+                <button type="submit" class="user-icon-btn" aria-label="Go to login page">
+                  <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+                </button>
+              </form>
+            <% } else { %>
+              <div class="user-dropdown">
+                <button class="user-icon-btn" aria-label="User menu">
+                  <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+                </button>
+                <div class="user-dropdown-content">
+                  <a href="/logout" class="logout-btn">Log Out</a>
+                </div>
+              </div>
+            <% } %>
+          </div>
             <div class="mobile-controls">
                 <a href="/login" class="user-icon-btn" aria-label="Go to login page">
                   <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
