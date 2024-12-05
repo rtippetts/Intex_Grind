@@ -41,6 +41,21 @@ app.get('/eventForm', (req, res) => {
     res.render('eventForm')
 });
 
+app.get('/volunteerSignup', async (req, res) => {
+    try {
+        // Fetch active events using Knex query builder
+        const event = await knex('events')
+            .where('event_status', 'APPROVED')
+            .orderBy('event_date', 'asc');
+        
+        // Render the volunteer events page
+        res.render('volunteerSignup', { event });
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        res.status(500).send('Error loading events');
+    }
+});
+
 app.get('/jensStory', (req, res) => {
     res.render('jensStory')
 });
