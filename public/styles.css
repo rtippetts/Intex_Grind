@@ -6,6 +6,8 @@
     --nav-bg: #21A2DB;
     --nav-link-color: #fff;
     --nav-link-hover: #1B8ABF;
+    --admin-button: #112d4e;
+    --admin-button-hover: #2e4054;
 }
 * {
     margin: 0;
@@ -108,6 +110,21 @@
     background-color: var(--nav-link-hover);
     color: var(--nav-link-color);
 }
+
+.admin-btn {
+    background-color: var(--admin-button);
+    color: var(--nav-bg);
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+.admin-btn:hover {
+    background-color: var(--admin-button-hover);
+    color: var(--nav-link-color);
+}
+
 .user-icon {
     width: 30px;
     height: 30px;

@@ -63,7 +63,7 @@ app.get('/volunteerOpportunities', async (req, res) => {
 });
 
 app.get('/jensStory', (req, res) => {
-    res.render('jensStory')
+    res.render('jensStory', { user: req.session.user }) 
 });
 
 app.get('/volunteerForm', (req, res) => {
@@ -71,7 +71,7 @@ app.get('/volunteerForm', (req, res) => {
 });
 
 app.get('/help', (req, res) => {
-    res.render('help')
+    res.render('help', { user: req.session.user }) 
 });
 
 app.get('/donate', (req, res) => {
@@ -79,11 +79,11 @@ app.get('/donate', (req, res) => {
 });
 
 app.get('/contactUs', (req, res) => {
-    res.render('contactUs')
+    res.render('contactUs', { user: req.session.user }) 
 })
 
 app.get('/login', (req, res) => {
-    res.render('login')
+    res.render('login') 
 });
 
 app.get('/success', (req, res) => {
@@ -401,7 +401,7 @@ app.post('/addVolunteer', (req, res) => {
 });
 
 app.get('/sponsors', (req, res) => {
-    res.render('sponsors')
+    res.render('sponsors', { user: req.session.user }) 
 });
 
 // Add after your other requires

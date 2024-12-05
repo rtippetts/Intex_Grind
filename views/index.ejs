@@ -74,14 +74,14 @@
 
             <% if (locals.user && user.vol_type === 'A') { %>
                 <form action="/volunteerOpportunities" method="get" style="display: inline;">
-                    <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
+                    <a href="/volunteerOpportunities" class="admin-btn" role="button">Volunteer Opportunities</a>
                 </form>                
                 <form action="/success" method="get" style="display: inline;">
-                    <a href="/success" role="button">Admin Dashboard</a>
+                    <a href="/success" class="admin-btn" role="button">Admin Dashboard</a>
                 </form>
             <% } else if (locals.user && user.vol_type === 'B') { %>
                 <form action="/volunteerOpportunities" method="get" style="display: inline;">
-                    <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
+                    <a href="/volunteerOpportunities" class="admin-btn" role="button">Volunteer Opportunities</a>
                 </form>
             <% } %>
         </div>

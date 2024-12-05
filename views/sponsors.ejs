@@ -100,7 +100,7 @@
                     <a href="/jensStory" role="button">Jen's Story</a>
                 </form>
                 <form action="/help" method="get" style="display: inline;">
-                <div> 
+                <div>
                     <a href="/help" role="button">How You Can Help</a>
                 </form>
                 </div>
@@ -110,11 +110,28 @@
                 <form action="/contactUs" method="get" style="display: inline;">
                     <a href="/contactUs" role="button">Contact Us</a>
                 </form>
+                <!-- <form action="/volunteerOpportunities" method="get" style="display: inline;">
+                    <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
+                </form> -->
+                <% if (locals.user && user.vol_type === 'A') { %>
+                    <form action="/volunteerOpportunities" method="get" style="display: inline;">
+                        <a href="/volunteerOpportunities" class="admin-btn" role="button">Volunteer Opportunities</a>
+                    </form>
+                    <form action="/success" method="get" style="display: inline;">
+                        <a href="/success" class="admin-btn" role="button">Admin Dashboard</a>
+                    </form>
+                <% } else if (locals.user && user.vol_type === 'B') { %>
+                    <form action="/volunteerOpportunities" method="get" style="display: inline;">
+                        <a href="/volunteerOpportunities" class="admin-btn" role="button">Volunteer Opportunities</a>
+                    </form>
+                <% } %>
             </div>
-            <form action="/donate">
             <div class="nav-right">
-                    <a href="https://turtleshelterproject.org/checkout/donate?donatePageId=5b6a44c588251b72932df5a0" class="donate-btn" role="button">Donate</a>
-                </form>
+                <% if (!locals.user || user.vol_type === 'B') { %>
+                    <form action="/donate">
+                        <a href="https://turtleshelterproject.org/checkout/donate?donatePageId=5b6a44c588251b72932df5a0" class="donate-btn" role="button">Donate</a>
+                    </form>
+                <% } %>
                 <form action="/login" method="get">
                     <button type="submit" class="user-icon-btn" aria-label="Go to login page">
                         <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
@@ -129,6 +146,7 @@
                   <span class="hamburger-icon">&#9776;</span>
                 </button>
               </div>
+        </nav>
     </header>
 
     <!-- Main Content -->
