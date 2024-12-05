@@ -52,9 +52,9 @@ This is a simple login page for admins to authenticate and gain access to organi
 **Admin login** 
 In order to login as an admin and see this page, use the following credentials:
 
-  ***USERNAME: jsmith***
+  ***USERNAME: JSMITH***
   
-  ***PASSWORD: password123***
+  ***PASSWORD: PASSWORD123***
 
 ### Home Page (Admin)
 
