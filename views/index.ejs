@@ -1,13 +1,18 @@
+<!-- Author: Bryce, Ella, Alaina, Rex -->
+ <!-- Description: Home Landing Page User Facing -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turtle Shelter Project</title>
+    <!-- Link to stylesheets -->
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/home.css">
 </head>
 <body>
+    <!--Header Navigation and routes to other pages-->
     <nav class="navbar">
         <form action="/">
             <a href="/" class="logo" role="button">
@@ -44,6 +49,7 @@
                 </button>
             </form>
         </div>
+            <!--Enables header to look good when minimized with hamburger icon dropdown menu-->
         <div class="mobile-controls">
             <a href="/login" class="user-icon-btn" aria-label="Go to login page">
               <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
@@ -53,7 +59,7 @@
             </button>
           </div>
     </nav>
-    
+    <!--Call to Action section with animated text carousel-->
     <section class="hero">
         <div class="hero-content">
             <h1 class="main-title"><b>You Can</b></h1>
@@ -62,9 +68,8 @@
             <form action="/help" method="get" style="display: inline;">
                 <a href="/help" class="cta-button" role="button">Find out How You Can Help →</a>
             </form>
-            
         </div>
-
+        <!--Diamond Shaped Images For Styling-->
         <div class="image-grid">
             <div class="diamond-image diamond-1">
                 <img src="Intex Pictures/sewing1.jpg" alt="Image 1">
@@ -78,6 +83,7 @@
         </div>
     </section>
 
+    <!--Video Section with Youtube Embed-->
     <section class="video-section">
         <div class="video-container">
             <div class="video-wrapper">
@@ -95,7 +101,7 @@
             </div>
         </div>
     </section>
-
+    <!--About Vest Section-->
     <section class="vest-section">
         <div class="vest-container">
             <div class="vest-image">
@@ -109,14 +115,16 @@
             </div>
         </div>
     </section>
-
+    <!--Footer Section and Styling-->
     <footer class="footer">
         <div class="footer-container">
             <div class="contact-info">
                 <div class="contact-item">
+                    <!--Link that calls TurtleShelter number-->
                     <img src="Intex Pictures/phone.png" alt="Phone Image">
                     <a href="tel:+18015550123">801-872-3190</a>
                 </div>
+                    <!--Link that opens up default mail app to email turtleshelter-->
                 <div class="contact-item">
                     <img src="Intex Pictures/mail.png" alt="Mail Icon">
                     <a href="mailto:turtleshelterproject@gmail.com">turtleshelterproject@gmail.com</a>
@@ -126,6 +134,7 @@
                     <span>PO Box 382, Kaysville, UT 84037</span>
                 </div>
             </div>
+            <!--Links to Facebook and Instagram pages externally-->
             <div class="social-links">
                 <a href="https://facebook.com/turtleshelterproject" target="https://www.facebook.com/turtleshelterproject/" aria-label="Facebook">
                     <img src="Intex Pictures/facebook.png" alt="" class="social-icon">
@@ -136,17 +145,21 @@
             </div>
         </div>
     </footer>
-
+    
+    <!--JavaScript Functions-->
     <script>
+        //Rotating text on call to action header
         const rotatingTexts = [
             "Serve the Homeless",
             "Make a Difference",
             "Donate to a Good Cause"
         ];
         
+        //Initializes text rotation
         let currentIndex = 0;
         const textElement = document.getElementById('rotating-text');
 
+        //Text Rotation function with fade effect
         function updateText() {
             textElement.style.opacity = 0;
             setTimeout(() => {

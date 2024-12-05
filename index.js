@@ -3,16 +3,12 @@
 
 // Import Required Packages
 let express = require("express");
-
 let app = express();
-
 let path = require("path");
-
 let bodyParser = require('body-parser');
 
 //Configure environment variables and security settings
 const port = process.env.PORT || 5000;
-
 let security = false;
 
 // Set up EJS view and configure express middleware and settings
@@ -399,6 +395,7 @@ app.get('/calendar', (req, res) => {
     res.render('calendar')
 });
 
+//Deletes an event by ID and redirects to event list
 app.post('/deleteEvent/:id', (req, res) => {
     knex('events').where('event_id', req.params.id).del()
     .then(() => {
@@ -406,10 +403,12 @@ app.post('/deleteEvent/:id', (req, res) => {
     })
 });
 
+//Redirects to event form for new event creation
 app.get('/addEvent', (req, res) => {
     res.redirect('/eventForm')
 });
 
+//Processes new event submission, creates contact record, parses and validates form data, creates event record
 app.post('/submitEvent', async (req, res) => {
     try {
         // First log all incoming values
@@ -500,6 +499,8 @@ app.post('/submitEvent', async (req, res) => {
     }
 });
 
+//Processes volunteer registration form
+//Creates new volunteer record with type 'B' (regular volunteer not admin)
 app.post("/volunteer_form", (req, res) => {
     // Add debugging logs
     console.log("Form submission received");
@@ -530,10 +531,12 @@ app.post("/volunteer_form", (req, res) => {
     });
 });
 
+//Admin routes for event management
 app.get('/adminAddEvent', (req, res) => {
     res.render('adminAddEvent')
 });
 
+//Processes admin event submission
 app.post('/adminSubmitEvent', async (req, res) => {
     try {
         // First log all incoming values
