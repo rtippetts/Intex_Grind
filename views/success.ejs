@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header Footer Page</title>
-    <link rel="stylesheet" href="adminstyles.css">
+    <title>Turtle Shelter Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/adminstyles.css">
 </head>
+<body>
+    <div class="min-h-screen flex flex-col">
 <!-- Header Component -->
 <header>
     <nav class="navbar">
@@ -38,14 +41,29 @@
             </button>
         </form>
     </div>
+        <div class="mobile-controls">
+        <a href="/login" class="user-icon-btn" aria-label="Go to login page">
+          <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+        </a>
+        <button class="nav-toggle">
+          <span class="hamburger-icon">&#9776;</span>
+        </button>
+      </div>
     </nav>
 </header>
 
-<body>
-    
-</body>
+        <!-- Main Content -->
+        <main class="flex-grow bg-gray-50">
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="aspect-video w-full">
+                        <%- include('tableau-embed') %>
+                    </div>
+                </div>
+            </div>
+        </main>
 
-<!-- Footer Component -->
+ <!-- Footer Component -->
 <footer class="footer">
     <div class="footer-container">
         <div class="contact-info">
@@ -72,43 +90,14 @@
         </div>
     </div>
 </footer>
-
-<!-- Navigation JavaScript -->
+    </div>
+</body>
 <script>
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    const dropdowns = document.querySelectorAll('.dropdown');
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
 
-    navToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('show');
-    });
-
-    dropdowns.forEach(dropdown => {
-        const dropdownLink = dropdown.querySelector('a');
-        
-        dropdownLink.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                dropdowns.forEach(other => {
-                    if (other !== dropdown) {
-                        other.classList.remove('active');
-                    }
-                });
-                
-                dropdown.classList.toggle('active');
-            }
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
         });
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
-            navLinks.classList.remove('show');
-            dropdowns.forEach(dropdown => {
-                dropdown.classList.remove('active');
-            });
-        }
-    });
 </script>
 </html>

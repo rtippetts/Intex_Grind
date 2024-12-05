@@ -2,6 +2,12 @@
     "folders": [
         {
             "path": "."
+        },
+        {
+            "path": "../../IS 403/Project 2"
+        },
+        {
+            "path": "../../../Downloads/Backup"
         }
     ]
 }
