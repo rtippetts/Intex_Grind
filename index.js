@@ -361,7 +361,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// Add this with your other routes
+// Process contact form submissions, sends email using nodemailer
 app.post('/api/contact', async (req, res) => {
     const { firstName, lastName, email, subject, message } = req.body;
 
