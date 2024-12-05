@@ -1,6 +1,8 @@
-// Initialize necessary tools
-let express = require("express");
+//Author: Bryce, Ella, Alaina, Rex
+//Description: index.js page to create routes
 
+// Import Required Packages
+let express = require("express");
 
 let app = express();
 
@@ -8,11 +10,12 @@ let path = require("path");
 
 let bodyParser = require('body-parser');
 
+//Configure environment variables and security settings
 const port = process.env.PORT || 5000;
 
 let security = false;
 
-// Set up EJS view
+// Set up EJS view and configure express middleware and settings
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({extended: true}));
@@ -20,7 +23,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Connect to database
+// Connected to our database using Knex
 const knex = require("knex") ({
     client : "pg",
     connection : {
@@ -33,6 +36,7 @@ const knex = require("knex") ({
     }
 });
 
+//Basic page routes
 app.get('/', (req, res) => {
     res.render('index')
 });
@@ -69,12 +73,14 @@ app.get('/success', (req, res) => {
     res.render('success')
 });
 
+//Admin management routes
 app.get('/admin', (req, res) => {
     knex('volunteers').where('vol_type', 'A').then(admin => {
         res.render('admin', {admin})
     })
 });
 
+//Edit Admin User Form and Retrieves specific admin user data for editing
 app.get('/editAdmin/:id', (req, res) => {
     knex('volunteers').where('volunteer_id', req.params.id).first()
     .then(admin => {
@@ -82,6 +88,7 @@ app.get('/editAdmin/:id', (req, res) => {
     })
 });
 
+//Processed admin user updates. Updates admin information in database
 app.post('/editAdmin/:id', (req, res) => {
     knex('volunteers').where('volunteer_id', req.params.id)
     .update({
@@ -133,6 +140,7 @@ app.post('/deleteAdmin/:id', (req, res) => {
     })
 });
 
+//Displays all event requests
 app.get('/eventRequests', (req, res) => {
     knex('events').join('contacts', 'events.contact_id', '=','contacts.contact_id').select(
         'events.event_id',
@@ -154,6 +162,7 @@ app.get('/eventRequests', (req, res) => {
     })
 });
 
+//Edit event form and retrieves event with contact information
 app.get('/editEvent/:id', (req, res) => {
     let event, contact;
 
@@ -238,6 +247,7 @@ app.get('/volunteer', (req, res) => {
        
     });
 
+//creates login route
 app.post('/login', async (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
@@ -339,10 +349,10 @@ app.get('/sponsors', (req, res) => {
     res.render('sponsors')
 });
 
-// Add after your other requires
+// Email Configuration to send requests to personal gmail
 const nodemailer = require('nodemailer');
 
-// Create email transporter
+// Creates email transporter
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
