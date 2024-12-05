@@ -394,6 +394,7 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
+//calendar route
 app.get('/calendar', (req, res) => {
     res.render('calendar')
 });
@@ -623,4 +624,5 @@ app.post('/adminSubmitEvent', async (req, res) => {
     }
 });
 
+//Starts Server
 app.listen(port, () => console.log('Listening...'));
