@@ -2,7 +2,7 @@
 
 ## This is the website for the Turtle Shell Project. The main aim of this site is to allow volunteers, organizations, and admins to manage events.
 
-URL: _______
+URL: home.turtleshelter.net --> Our very own DNS server name! We're so cool.
 
 *Volunteers* can come to the website and submit their information to be contacted by an admin for volunteer opportunities.
 
