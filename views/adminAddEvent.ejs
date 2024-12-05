@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Request Form - Turtle Shelter Project</title>
+    <title>Admin Event Request Form - Turtle Shelter Project</title>
     <style>
         body {
             margin: 0;
@@ -13,6 +13,7 @@
             min-height: 100vh;
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
+            position: relative; /* Add this line */
         }
 
         .form-container {
@@ -22,6 +23,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 60px;
         }
 
         .form-title {
@@ -184,11 +186,33 @@
         input:invalid, select:invalid, textarea:invalid {
             border-color: #ff6b6b;
         }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #1976D2;
+        }
     </style>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-
+    <form action="/eventRequests">
+        <a href="/eventRequests" class="back-button">Back to Events</a>
+    </form>
+    
     <div class="form-container">
         <h2 class="form-title">Turtle Shelter Event Request</h2>
         <form id="eventForm" action="/adminSubmitEvent" method="POST">

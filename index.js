@@ -1,14 +1,20 @@
 // Initialize necessary tools
 let express = require("express");
-
+const session = require('express-session');
 
 let app = express();
+
+app.use(session({
+    secret: 'turtleshelter-session-123',
+    resave: false,
+    saveUninitialized: false
+}));
 
 let path = require("path");
 
 let bodyParser = require('body-parser');
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 let security = false;
 
@@ -34,14 +40,14 @@ const knex = require("knex") ({
 });
 
 app.get('/', (req, res) => {
-    res.render('index')
+    res.render('index', { user: req.session.user })
 });
 
 app.get('/eventForm', (req, res) => {
     res.render('eventForm')
 });
 
-app.get('/volunteerSignup', async (req, res) => {
+app.get('/volunteerOpportunities', async (req, res) => {
     try {
         // Fetch active events using Knex query builder
         const event = await knex('events')
@@ -49,7 +55,7 @@ app.get('/volunteerSignup', async (req, res) => {
             .orderBy('event_date', 'asc');
         
         // Render the volunteer events page
-        res.render('volunteerSignup', { event });
+        res.render('volunteerOpportunities', { event });
     } catch (error) {
         console.error('Error fetching events:', error);
         res.status(500).send('Error loading events');
@@ -84,8 +90,26 @@ app.get('/success', (req, res) => {
     res.render('success')
 });
 
+//admin permissions, renders admin button
+// app.get('/admin', (req, res) => {
+//     knex('volunteers').where('vol_type', 'A').then(admin => {
+//         res.render('admin', {admin})
+//     })
+// });  //Changed
+
 app.get('/admin', (req, res) => {
+    if (!req.session.user || req.session.user.vol_type !== 'A') {
+        return res.redirect('/login');
+    }
+    
     knex('volunteers').where('vol_type', 'A').then(admin => {
+        res.render('admin', {admin, user: req.session.user})
+    });
+});
+
+//basic volunteer permissions, loads volunteer opportunities button
+app.get('/admin', (req, res) => {
+    knex('volunteers').where('vol_type', 'B').then(admin => {
         res.render('admin', {admin})
     })
 });
@@ -253,40 +277,66 @@ app.get('/volunteer', (req, res) => {
        
     });
 
-app.post('/login', async (req, res) => {
-    let username = req.body.username;
-    let password = req.body.password;
-    console.log('Username:', username);
-    console.log('Password:', password);
+// app.post('/login', async (req, res) => {
+//     let username = req.body.username;
+//     let password = req.body.password;
+//     console.log('Username:', username);
+//     console.log('Password:', password);
   
-    try {
-      // Query the database for the user
-      let user = await knex('volunteers').select('username', 'password', 'vol_type').where('username', username).first();
+//     try {
+//       // Query the database for the user
+//       let user = await knex('volunteers').select('username', 'password', 'vol_type').where('username', username).first();
   
-      console.log('Retrieved user:', user);
-      console.log('Type: ', user.vol_type)
+//       console.log('Retrieved user:', user);
+//       console.log('Type: ', user.vol_type)
   
-      if (!user) {
-        return res.status(401).json({ error: 'Invalid username' });
-      }
+//       if (!user) {
+//         return res.status(401).json({ error: 'Invalid username' });
+//       }
   
-      const isPasswordValid = user.password === password;
+//       const isPasswordValid = user.password === password;
   
-      if (!isPasswordValid) {
-        return res.status(401).json({ error: 'Invalid password' });
-      }
+//       if (!isPasswordValid) {
+//         return res.status(401).json({ error: 'Invalid password' });
+//       }
 
-      if (user.vol_type == 'B') {
-        return res.status(401).json({ error: 'Unauthorized login' })
-      }
+//       if (user.vol_type == 'B') {
+//         return res.status(401).json({ error: 'Unauthorized login' })
+//       }
   
-      // Render the specific page if credentials are valid
-      return res.status(200).json({ message: 'Login successful!' });
+//       // Render the specific page if credentials are valid
+//       return res.status(200).json({ message: 'Login successful!' });
+//     } catch (error) {
+//       console.error('Error during login:', error);
+//       res.status(500).json({ error: 'An error occurred. Please try again later.' });
+//     }
+//   });
+
+//Changes here
+app.post('/login', async (req, res) => {
+    try {
+        let user = await knex('volunteers')
+            .select('username', 'password', 'vol_type')
+            .where('username', req.body.username)
+            .first();
+            
+        if (!user || user.password !== req.body.password) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        req.session.user = {
+            username: user.username,
+            vol_type: user.vol_type
+        };
+
+        return res.status(200).json({ message: 'Login successful!' });
     } catch (error) {
-      console.error('Error during login:', error);
-      res.status(500).json({ error: 'An error occurred. Please try again later.' });
+        console.error('Login error:', error);
+        res.status(500).json({ error: 'Server error' });
     }
-  });
+});//Changes end here
+
+
 
 app.get('/editVolunteer/:id', (req, res) => {
     knex('volunteers').where('volunteer_id', req.params.id).first()

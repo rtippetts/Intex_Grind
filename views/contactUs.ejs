@@ -94,44 +94,52 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <nav class="navbar">
-        <form action="/">
-            <a href="/" class="logo" role="button">
-                <img src="/Intex Pictures/logo-modified.png" alt="Turtle Shelter Logo">
-                <span>Turtle Shelter Project</span>
-            </a>
-        </form>
-        <div class="nav-links">
-            <form action="/" method="GET" style="display: inline;">
-                <a href="/" role="button">Home</a>
+        <!-- Header -->
+        <nav class="navbar">
+            <form action="/">
+                <a href="/" class="logo" role="button">
+                    <img src="/Intex Pictures/logo-modified.png" alt="Turtle Shelter Logo">
+                    <span>Turtle Shelter Project</span>
+                </a>
             </form>
-            <form action="/jensStory" method="get" style="display: inline;">
-                <a href="/jensStory" role="button">Jen's Story</a>
-            </form>
-            <form action="/help" method="get" style="display: inline;">
-            <div class="dropdown"> 
-                <a href="/help" role="button">How You Can Help</a>
-            </form>
+            <div class="nav-links">
+                <form action="/" method="GET" style="display: inline;">
+                    <a href="/" role="button">Home</a>
+                </form>
+                <form action="/jensStory" method="get" style="display: inline;">
+                    <a href="/jensStory" role="button">Jen's Story</a>
+                </form>
+                <form action="/help" method="get" style="display: inline;">
+                <div> 
+                    <a href="/help" role="button">How You Can Help</a>
+                </form>
+                </div>
+                <form action="/sponsors" method="get" style="display: inline;">
+                    <a href="/sponsors" role="button">Our Sponsors</a>
+                </form>
+                <form action="/contactUs" method="get" style="display: inline;">
+                    <a href="/contactUs" role="button">Contact Us</a>
+                </form>
             </div>
-            <form action="/sponsors" method="get" style="display: inline;">
-                <a href="/sponsors" role="button">Our Sponsors</a>
-            </form>
-            <form action="/contactUs" method="get" style="display: inline;">
-                <a href="/contactUs" role="button">Contact Us</a>
-            </form>
-        </div>
-        <form action="/donate">
-        <div class="nav-right">
-                <a href="https://turtleshelterproject.org/checkout/donate?donatePageId=5b6a44c588251b72932df5a0" class="donate-btn" role="button">Donate</a>
-            </form>
-            <form action="/login" method="get">
-                <button type="submit" class="user-icon-btn" aria-label="Go to login page">
-                    <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+            <form action="/donate">
+            <div class="nav-right">
+                    <a href="https://turtleshelterproject.org/checkout/donate?donatePageId=5b6a44c588251b72932df5a0" class="donate-btn" role="button">Donate</a>
+                </form>
+                <form action="/login" method="get">
+                    <button type="submit" class="user-icon-btn" aria-label="Go to login page">
+                        <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+                    </button>
+                </form>
+            </div>
+            <div class="mobile-controls">
+                <a href="/login" class="user-icon-btn" aria-label="Go to login page">
+                  <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+                </a>
+                <button class="nav-toggle">
+                  <span class="hamburger-icon">&#9776;</span>
                 </button>
-            </form>
-        </div>
-    </nav>
+              </div>
+        </nav>
 
     <!-- Main Content -->
     <main class="contact-container">
@@ -204,6 +212,11 @@
     </footer>
 
     <script>
+                const navToggle = document.querySelector('.nav-toggle');
+                const navLinks = document.querySelector('.nav-links');
+                navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
         document.getElementById('contactForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             

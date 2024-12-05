@@ -242,7 +242,7 @@
                 });
 
                 if (response.ok) {
-                    window.location.href = '/success';
+                    window.location.href = '/'; //changed this from /success
                 } else {
                     const data = await response.json();
                     errorMessage.textContent = data.error;
