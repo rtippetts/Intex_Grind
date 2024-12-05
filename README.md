@@ -2,7 +2,7 @@
 
 ## This is the website for the Turtle Shell Project. The main aim of this site is to allow volunteers, organizations, and admins to manage events.
 
-URL: _______
+URL: home.turtleshelter.net --> Our very own DNS server name! We're so cool.
 
 *Volunteers* can come to the website and submit their information to be contacted by an admin for volunteer opportunities.
 
@@ -39,6 +39,7 @@ This takes the user to a page representing all our sponsors.
 #### Contact US
 
 The Contact Us page takes the user to a form that auto-sends an email to the admin gmail account. This is really cool!
+This required installing a new library called node mailer and creating an app password for the account to link it to gmail.
 
 #### Donate
 
@@ -51,9 +52,9 @@ This is a simple login page for admins to authenticate and gain access to organi
 **Admin login** 
 In order to login as an admin and see this page, use the following credentials:
 
-  ***USERNAME: jsmith***
+  ***USERNAME: JSMITH***
   
-  ***PASSWORD: password123***
+  ***PASSWORD: PASSWORD123***
 
 ### Home Page (Admin)
 
