@@ -364,3 +364,23 @@ form[action="/addVolunteer"] {
     justify-content: center;
     margin: 2rem auto;
 }
+
+/* Center the Add Volunteer form */
+form[action="/addVolunteer"] {
+    display: flex;
+    justify-content: center;
+    margin: 2rem auto;
+}
+
+/* Center the Add Event Form */
+form[action="/addEvent"] {
+    display: flex;
+    justify-content: center;
+    margin: 2rem auto;
+}
+
+.tableauPlaceholder {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}

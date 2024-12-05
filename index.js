@@ -8,7 +8,7 @@ let path = require("path");
 
 let bodyParser = require('body-parser');
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 let security = false;
 
