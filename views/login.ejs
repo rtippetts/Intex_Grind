@@ -253,8 +253,7 @@
                 });
 
                 if (response.ok) {
-                    //Redirect on successful login
-                    window.location.href = '/success';
+                    window.location.href = '/'; //changed this from /success
                 } else {
                     //Display error message from server
                     const data = await response.json();
