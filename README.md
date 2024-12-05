@@ -39,6 +39,7 @@ This takes the user to a page representing all our sponsors.
 #### Contact US
 
 The Contact Us page takes the user to a form that auto-sends an email to the admin gmail account. This is really cool!
+This required installing a new library called node mailer and creating an app password for the account to link it to gmail.
 
 #### Donate
 
