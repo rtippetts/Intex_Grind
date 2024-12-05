@@ -5,184 +5,377 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volunteer Events</title>
     <style>
-        /* Table Styles */
+        :root {
+            --primary-color: #3B82F6;
+            --secondary-color: #2563EB;
+            --text-color: #333;
+            --background-color: #f4f4f4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .filter {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            font-family: Arial, sans-serif;
         }
 
-        /* Table Header Styles */
-        thead th {
-            background-color: #4CAF50;
+        th {
+            background-color: var(--primary-color);
             color: white;
-            padding: 12px 15px;
+            padding: 12px;
             text-align: left;
         }
 
-        /* Table Row Styles */
-        tbody tr {
+        td {
+            padding: 12px;
             border-bottom: 1px solid #ddd;
         }
 
-        tbody tr:nth-child(even) {
-            background-color: #f2f2f2;
+        tr:hover {
+            background-color: #f1f1f1;
         }
 
-        tbody td {
-            padding: 10px 15px;
-        }
-
-        /* Button Styles */
-        button {
-            background-color: #4CAF50;
-            border: none;
+        .signup-btn {
+            background-color: var(--primary-color);
             color: white;
+            border: none;
             padding: 8px 16px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
             border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        button:hover {
-            background-color: #45a049;
+        .signup-btn:hover {
+            background-color: #2563EB;
         }
 
-        /* Signup Form Styles */
         .signup-form-row {
             display: none;
-        }
-
-        .signup-form-row.active {
-            display: table-row;
+            background-color: #f9f9f9;
         }
 
         .signup-form {
-            background-color: #f9f9f9;
-            padding: 15px;
+            padding: 20px;
+            border-radius: 8px;
         }
 
-        .signup-form input, 
-        .signup-form textarea {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        /* Location Filter Styles */
         #location-filter {
-            width: 200px;
             padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .volunteer-signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .form-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .form-left, .form-right {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .form-group {
             margin-bottom: 15px;
         }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .form-group input[type="number"],
+        .form-group input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox label {
+            font-weight: normal;
+            margin: 0;
+        }
+
+        .form-submit {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .signup-btn {
+            background: #21A2DB;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .signup-btn:hover {
+            background: #1B8ABF;
+        }
+
     </style>
+    <link rel="stylesheet" href="/styles.css">
 </head>
-<body>
-    <h1>Volunteer Events</h1>
 
-    <!-- Location Filter -->
-    <label for="location-filter">Filter by Location:</label>
-    <select id="location-filter">
-        <option value="">All Locations</option>
-        <% 
-        // Create a Set of unique locations to avoid duplicates
-        const uniqueLocations = new Set(event.map(row => `${row.event_city}, ${row.event_state}`));
-        uniqueLocations.forEach(location => { 
-        %>
-            <option value="<%= location %>"><%= location %></option>
-        <% }); %>
-    </select>
+    <nav class="navbar">
+        <form action="/">
+            <a href="/" class="logo" role="button">
+                <img src="/Intex Pictures/logo-modified.png" alt="Turtle Shelter Logo">
+                <span>Turtle Shelter Project</span>
+            </a>
+        </form>
+        <div class="nav-links">
+            <form action="/" method="GET" style="display: inline;">
+                <a href="/" role="button">Home</a>
+            </form>
+            <form action="/jensStory" method="get" style="display: inline;">
+                <a href="/jensStory" role="button">Jen's Story</a>
+            </form>
+            <form action="/help" method="get" style="display: inline;">
+            <div> 
+                <a href="/help" role="button">How You Can Help</a>
+            </form>
+            </div>
+            <form action="/sponsors" method="get" style="display: inline;">
+                <a href="/sponsors" role="button">Our Sponsors</a>
+            </form>
+            <form action="/contactUs" method="get" style="display: inline;">
+                <a href="/contactUs" role="button">Contact Us</a>
+            </form>
+            <!-- <form action="/volunteerOpportunities" method="get" style="display: inline;">
+                <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
+            </form> -->
 
-
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Date</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Event Type</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% if (event.length > 0) { %>
-                <% event.forEach((row, index) => { %>
-                    <tr class="event-row" 
-                        data-location="<%= `${row.event_city}, ${row.event_state}` %>"
-                        data-event-id="<%= row.event_id %>"
-                    >
-                        <input type="hidden" value="<%= row.event_id %>">
-                        <td><%= row.event_name %></td>
-                        <td><%= new Date(row.event_date).toLocaleDateString() %></td>
-                        <td><%= row.event_city %></td>
-                        <td><%= row.event_state %></td>
-                        <td>
-                            <% 
-                            const startTimeString = row.event_start_time.split('+')[0];
-                            %>
-                            <%= startTimeString %>
-                        </td>
-                        <td>
-                            <%
-                            const endTimeString = row.event_end_time.split('+')[0];
-                            %>
-                            <%= endTimeString %>
-                        </td>
-                        <td><%= row.event_type %></td>
-                        <td>
-                            <button class="signup-btn">Volunteer Signup</button>
-                        </td>
-                    </tr>
-                    <tr class="signup-form-row">
-                        <td colspan="9">
-                            
-                            <div class="signup-form">
-                                <h3>Volunteer Signup for <%= row.event_name %></h3>
-                                <form class="volunteer-signup-form">
-                                    <input type="hidden" name="eventId" value="<%= row.event_id %>">
-                                    
-                                    
-                                    <div class="event-location">
-                                        <strong>Event Location:</strong>
-                                        <p><%= `${row.event_address}, ${row.event_zipcode}` %></p>
-                                    </div>
-
-                                    <div class="num-sewing-machines-needed">
-                                        <strong>Number of sewing machines needed:</strong>
-                                        <p><%= row.num_sewing_machines_needed %></p>
-                                    </div>
-                                    <div class="num-sergers-needed">
-                                        <strong>Number of sergers needed:</strong>
-                                        <p><%= row.num_sergers_needed %></p>
-                                    </div>
-
-
-                                    
-                                    <div>
-                                        <label>Additional Notes</label>
-                                        <textarea name="notes" rows="3"></textarea>
-                                    </div>
-                                    <button type="submit">Submit Signup</button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                <% }); %>
-            <% } else { %>
-                <tr>
-                    <td colspan="9">No events available</td>
-                </tr>
+            <% if (locals.user && user.vol_type === 'A') { %>
+                <form action="/volunteerOpportunities" method="get" style="display: inline;">
+                    <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
+                </form>                
+                <form action="/success" method="get" style="display: inline;">
+                    <a href="/success" role="button">Admin Dashboard</a>
+                </form>
+            <% } else if (locals.user && user.vol_type === 'B') { %>
+                <form action="/volunteerOpportunities" method="get" style="display: inline;">
+                    <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
+                </form>
             <% } %>
-        </tbody>
-    </table>
+        </div>
+        <div class="nav-right">
+            <% if (!locals.user || user.vol_type === 'B') { %>
+                <form action="/donate">
+                    <a href="https://turtleshelterproject.org/checkout/donate?donatePageId=5b6a44c588251b72932df5a0" class="donate-btn" role="button">Donate</a>
+                </form>
+            <% } %>
+            <form action="/login" method="get">
+                <button type="submit" class="user-icon-btn" aria-label="Go to login page">
+                    <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+                </button>
+            </form>
+        </div>
+        <div class="mobile-controls">
+            <a href="/login" class="user-icon-btn" aria-label="Go to login page">
+              <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+            </a>
+            <button class="nav-toggle">
+              <span class="hamburger-icon">&#9776;</span>
+            </button>
+          </div>
+    </nav>
+
+<br>
+<body>
+    <div class="container">
+        <h1 class="page-title">Volunteer Events</h1>
+        <div class="filter">
+            <label for="location-filter">Filter by Location:</label>
+            <select id="location-filter">
+                <option value="">ALL LOCATIONS</option>
+                <% 
+                const uniqueLocations = new Set(event.map(row => `${row.event_city}, ${row.event_state}`));
+                uniqueLocations.forEach(location => { 
+                %>
+                    <option value="<%= location %>"><%= location %></option>
+                <% }); %>
+            </select>
+        </div>
+
+        <br>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Event Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (event.length > 0) { %>
+                    <% event.forEach((row, index) => { %>
+                        <tr class="event-row" 
+                            data-location="<%= `${row.event_city}, ${row.event_state}` %>"
+                            data-event-id="<%= row.event_id %>"
+                        >
+                            <input type="hidden" value="<%= row.event_id %>">
+                            <td><%= row.event_name %></td>
+                            <td><%= new Date(row.event_date).toLocaleDateString() %></td>
+                            <td><%= row.event_city %></td>
+                            <td><%= row.event_state %></td>
+                            <td>
+                                <% 
+                                const startTimeString = row.event_start_time.split('+')[0];
+                                %>
+                                <%= startTimeString %>
+                            </td>
+                            <td>
+                                <%
+                                const endTimeString = row.event_end_time.split('+')[0];
+                                %>
+                                <%= endTimeString %>
+                            </td>
+                            <td><%= row.event_type %></td>
+                            <td>
+                                <button class="signup-btn">Volunteer Signup</button>
+                            </td>
+                        </tr>
+                        <tr class="signup-form-row">
+                            <td colspan="9">
+                                <div class="signup-form">
+                                    <h3>Volunteer Signup for <%= row.event_name %></h3>
+                                    <br>
+                                    <form class="volunteer-signup-form">
+                                        <input type="hidden" name="eventId" value="<%= row.event_id %>">
+                                        
+                                        <div class="form-grid">
+                                            <div class="form-left">
+                                                <div class="event-location">
+                                                    <strong>Event Location:</strong>
+                                                    <p><%= `${row.event_address} ${row.event_city}, ${row.event_state}, ${row.event_zipcode}` %></p>
+                                                </div>
+                                                <br>
+                                                <div class="num-sewing-machines-needed">
+                                                    <strong>Sewing machines needed:</strong>
+                                                    <p><%= row.num_sewing_machines_needed %></p>
+                                                </div>
+                                                <div class="num-sergers-needed">
+                                                    <strong>Sergers needed:</strong>
+                                                    <p><%= row.num_sergers_needed %></p>
+                                                </div>
+                                                <br>
+                                                <p>Note: Volunteer need starts an hour before and ends an hour after official event hours.</p>
+                                            </div>
+
+                                            <div class="form-right">
+                                                <div class="form-group">
+                                                    <label for="sewing-machines-provided">Sewing Machines I Can Provide:</label>
+                                                    <input type="number" id="sewing-machines-provided" name="sewingMachinesProvided" min="0" placeholder="Enter number">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="sergers-provided">Sergers I Can Provide:</label>
+                                                    <input type="number" id="sergers-provided" name="sergersProvided" min="0" placeholder="Enter number">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="time-slot">Time Slot:</label>
+                                                    <input type="text" id="time-slot" name="timeSlot" placeholder="e.g., 10:00 AM - 2:00 PM">
+                                                </div>
+
+                                                <div class="form-group checkbox">
+                                                    <input type="checkbox" id="will-attend" name="willAttend">
+                                                    <label for="will-attend">I will be at this event</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-submit">
+                                            <button type="submit" class="signup-btn">Submit Signup</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="9">No events available</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
