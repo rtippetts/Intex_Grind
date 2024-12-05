@@ -1,3 +1,5 @@
+<!--Author: Bryce, Ella, Alaina, Rex-->
+<!--Description: Volunteer page to view sign up to be a volunteer-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volunteer Signup - Turtle Shelter Project</title>
     <style>
-        /* Keeping the same CSS styles from original form */
+        /* Keeping the same CSS styles as the create event form */
         body {
             margin: 0;
             display: flex;
@@ -170,6 +172,7 @@
     </style>
 </head>
 <body>
+    <!--Main Form Container-->
     <div class="form-container">
         <h2 class="form-title">Volunteer Signup Form</h2>
         <form id="volunteerForm" action="/volunteer_form" method="POST">
@@ -318,6 +321,7 @@
     </div>
 
     <script>
+        //Initialize form elements
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('volunteerForm');
             const steps = Array.from(document.querySelectorAll('.step'));
@@ -328,12 +332,14 @@
             const submitBtn = document.querySelector('.submit-btn');
             let currentStep = 0;
 
+            //Update progress bar
             function updateProgress() {
                 const progressPercentage = (currentStep / (steps.length - 1)) * 100;
                 progress.style.width = progressPercentage + '%';
                 stepNumber.textContent = currentStep + 1;
             }
 
+            //Show/hide form steps
             function showStep(stepIndex) {
                 steps.forEach((step, index) => {
                     if (index < stepIndex) {
@@ -395,7 +401,6 @@
                     showStep(currentStep);
                 }
             });
-
 
             form.addEventListener('submit', function(e) {
                 console.log("Form submission attempted");

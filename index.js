@@ -99,7 +99,7 @@ app.post('/editAdmin/:id', (req, res) => {
         username: req.body.username
     })
     .then(admin => {
-        res.redirect('/admin')
+        res.redirect('/volunteer')
     })
 });
 
@@ -124,15 +124,15 @@ app.post('/addAdmin', (req, res) => {
         password: req.body.password,
         vol_type: 'A'
     })
-    .then(admin => {
-        res.redirect('/admin')
+    .then(() => {
+        res.redirect('/volunteer')
     })
 });
 
 app.post('/deleteAdmin/:id', (req, res) => {
     knex('volunteers').where('volunteer_id', req.params.id).del()
     .then(admin => {
-        res.redirect('/admin')
+        res.redirect('/volunteer')
     })
 });
 
@@ -238,10 +238,26 @@ app.get('/volunteer', (req, res) => {
         'finding_sources.source_type as vol_finding_source'
     ).where('vol_type', 'B')
     .then(volunteer => {
-        res.render('volunteer', {volunteer})
+        knex('volunteers')
+    .select(
+        'volunteers.volunteer_id',
+        'volunteers.vol_first_name',
+        'volunteers.vol_last_name',
+        'volunteers.vol_email',
+        'volunteers.vol_phone',
+        'volunteers.vol_address',
+        'volunteers.vol_city',
+        'volunteers.vol_state',
+        'volunteers.vol_zipcode',
+        'volunteers.vol_sewing_level',
+        'volunteers.vol_available_monthly_hours',
+        'volunteers.username'
+    ).where('vol_type', 'A')
+    .then(admin => {
+        res.render('volunteer', {volunteer, admin})
     })
-       
-    });
+    })
+});
 
 //creates login route
 app.post('/login', async (req, res) => {

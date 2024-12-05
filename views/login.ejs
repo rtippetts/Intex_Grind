@@ -1,10 +1,13 @@
-<!DOCTYPE html>
+<!-- Author: Bryce, Ella, Alaina, Rex -->
+ <!-- Description: Login Page For Admin (A) and Volunteer (B) -->
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
+        /* Specific Styling for login page  */
         :root {
             --primary-color: #21A2DB;
             --secondary-color: #1B8ABF;
@@ -177,17 +180,21 @@
     </style>
 </head>
 <body>
+    <!--Different Header for Login Page that is more simple-->
     <nav class="navbar">
         <a href="/" class="logo">Turtle Shelter Project</a>
     </nav>
 
+    <!--Main Login Container-->
     <div class="login-container">
         <div class="login-card">
             <div class="login-header">
+                <!--Welcome message and instructions-->
                 <h1>Welcome Back</h1>
                 <p>Please sign in to continue</p>
             </div>
 
+            <!--Login form with username nad password fields-->
             <form id="login-form" action="/login" method="post">
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -211,28 +218,32 @@
                         required
                     >
                 </div>
-
+            <!--Nabigation Options (to go back home or login)-->
                 <button type="submit" class="submit-btn">Sign In</button>
                 <div id="error-message" class="error-message"></div>
             </form>
-
             <div class="navigation-links">
                 <a href="/" class="nav-btn">Home</a>
             </div>
         </div>
     </div>
 
+    <!--Form Handling Script-->
     <script>
+        //Get form and error message elements
         const loginForm = document.getElementById('login-form');
         const errorMessage = document.getElementById('error-message');
 
+        //Handle form submission
         loginForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
+            //Get input values
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
             try {
+                // Send login request to server
                 const response = await fetch('/login', {
                     method: 'POST',
                     headers: {
@@ -242,12 +253,15 @@
                 });
 
                 if (response.ok) {
+                    //Redirect on successful login
                     window.location.href = '/success';
                 } else {
+                    //Display error message from server
                     const data = await response.json();
                     errorMessage.textContent = data.error;
                 }
             } catch (error) {
+                //Handle network or other errors
                 console.error('Error:', error);
                 errorMessage.textContent = 'An error occurred. Please try again later.';
             }

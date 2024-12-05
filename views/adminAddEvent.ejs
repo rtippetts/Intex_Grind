@@ -1,10 +1,14 @@
+<!--Author: Bryce, Ella, Alaina, Rex-->
+<!--Description: Admin add Events page-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Event Request Form - Turtle Shelter Project</title>
+    <link rel="stylesheet" href="/styles.css">
     <style>
+        /*Specific styling for table */
         body {
             margin: 0;
             display: flex;
@@ -206,13 +210,13 @@
             background-color: #1976D2;
         }
     </style>
-    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+    <!--Back navigation to go to previous page-->
     <form action="/eventRequests">
         <a href="/eventRequests" class="back-button">Back to Events</a>
     </form>
-    
+    <!--Main form container-->
     <div class="form-container">
         <h2 class="form-title">Turtle Shelter Event Request</h2>
         <form id="eventForm" action="/adminSubmitEvent" method="POST">
@@ -250,11 +254,7 @@
 
                     </div>
                 </div>
-                
-                
-                
-                
-                
+                 
                 <!-- Step 3: Date & Time -->
                 <div class="step" data-step="2">
                     <h3>Event Schedule</h3>
@@ -269,10 +269,6 @@
                         <input type="time" id="event_end_time" name="event_end_time" required>
                     </div>
                 </div>
-
-
-
-
 
                 <!-- Step 4: Event Details -->
                 <div class="step" data-step="3">
@@ -334,7 +330,6 @@
                         <input type="number" id="venue_capacity" name="venue_capacity" required min="1">
                     </div>
                 </div>
-
 
              <!-- Step 6: Location Details -->
                 <div class="step" data-step="5">
@@ -402,9 +397,6 @@
 
             </div>
 
-
-
-            
             <div class="progress-container">
                 <div class="progress-bar">
                     <div class="progress"></div>
@@ -632,9 +624,6 @@
                     stepContainer.style.height = `${activeStep.offsetHeight}px`;
                 });
             }
-
-
-
 
                         // Children participation handlers
             const childrenSelect = document.getElementById('children_participating');

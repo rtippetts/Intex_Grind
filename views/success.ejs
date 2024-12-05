@@ -1,3 +1,5 @@
+<!-- Author: Bryce, Ella, Alaina, Rex -->
+ <!-- Description: Admin side of things homepage with Dashboard -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,12 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turtle Shelter Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!--Admin pages have a different styles.css page-->
     <link rel="stylesheet" href="/adminstyles.css">
 </head>
 <body>
     <div class="min-h-screen flex flex-col">
-<!-- Header Component -->
+<!-- Header Component that is original to the Admin side (darker blue different links to pages)-->
 <header>
+    <!--Navitation Header-->
     <nav class="navbar">
         <form action="/success" method="get">
             <a href="/success" class="logo" role="button">
@@ -41,6 +45,7 @@
             </button>
         </form>
     </div>
+    <!--Mobile controls that make screen look better when minimized-->
         <div class="mobile-controls">
         <a href="/login" class="user-icon-btn" aria-label="Go to login page">
           <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
@@ -52,18 +57,19 @@
     </nav>
 </header>
 
-        <!-- Main Content -->
+        <!-- Main Dashboard Content -->
         <main class="flex-grow bg-gray-50">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <div class="bg-white rounded-lg shadow p-6">
                     <div class="aspect-video w-full">
+                        <!--Links to tableau-embed.ejs page-->
                         <%- include('tableau-embed') %>
                     </div>
                 </div>
             </div>
         </main>
 
- <!-- Footer Component -->
+ <!-- Footer Component same as user facing but dark navy instead of light blue-->
 <footer class="footer">
     <div class="footer-container">
         <div class="contact-info">
@@ -93,9 +99,11 @@
     </div>
 </body>
 <script>
+        //Mobile navigation toggle script
         const navToggle = document.querySelector('.nav-toggle');
         const navLinks = document.querySelector('.nav-links');
 
+        //Toggle mobile navigation menu
         navToggle.addEventListener('click', () => {
             navLinks.classList.toggle('show');
         });

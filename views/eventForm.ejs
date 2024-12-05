@@ -1,9 +1,12 @@
+<!--Author: Bryce, Ella, Alaina, Rex-->
+<!--Description: Request an Event Form-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Request Form - Turtle Shelter Project</title>
+    <!--Specific styling for the event request form-->
     <style>
         body {
             margin: 0;
@@ -208,11 +211,12 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+    <!-- Navigation back button -->
     <form action="/help">
         <a href="/help" class="back-button">Back to Help</a>
     </form>
-    
 
+    <!-- Main form container -->
     <div class="form-container">
         <h2 class="form-title">Turtle Shelter Event Request</h2>
         <form id="eventForm" action="/submitEvent" method="POST">
@@ -251,10 +255,6 @@
                     </div>
                 </div>
                 
-                
-                
-                
-                
                 <!-- Step 3: Date & Time -->
                 <div class="step" data-step="2">
                     <h3>Event Schedule</h3>
@@ -269,10 +269,6 @@
                         <input type="time" id="event_end_time" name="event_end_time" required>
                     </div>
                 </div>
-
-
-
-
 
                 <!-- Step 4: Event Details -->
                 <div class="step" data-step="3">
@@ -314,6 +310,7 @@
 
                     </div>
                 </div>
+
                 <!-- Step 5: Location -->
                 <div class="step" data-step="4">
                     <h3>Event Location</h3>
@@ -335,7 +332,6 @@
                     </div>
                 </div>
 
-
              <!-- Step 6: Location Details -->
                 <div class="step" data-step="5">
                     <h3>Event Details</h3>
@@ -350,7 +346,6 @@
                             <input type="checkbox" id="round_tables" name="table_types" value="round" style="width: auto; display: inline-block; margin-right: 10px;">
                             <label for="round_tables" style="display: inline-block; margin-bottom: 0;">Round Tables</label>
                         </div>
-
 
                         <div id="rectangular_capacity" style="display: none;">
                             <label for="rectangular_seating">How many people can be seated at the rectangular tables?*</label>
@@ -398,13 +393,8 @@
                         </div>
                     </div>
                 </div>
-                
-
             </div>
 
-
-
-            
             <div class="progress-container">
                 <div class="progress-bar">
                     <div class="progress"></div>

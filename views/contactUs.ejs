@@ -1,3 +1,5 @@
+<!-- Author: Bryce, Ella, Alaina, Rex -->
+ <!-- Description: Contact Us Form that sends an email to email specified (if chosen we would change it to sending to their email not our email) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,94 +9,94 @@
     <link rel="stylesheet" href="/styles.css">
     <style>
         /* Contact Form Styles */
-.contact-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-}
+        .contact-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
 
-.contact-form {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+        .contact-form {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
 
-.form-group {
-    margin-bottom: 1.5rem;
-}
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
 
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
-    font-weight: 500;
-}
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
 
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
 
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: var(--primary-color);
-    outline: none;
-}
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
 
-.form-group textarea {
-    min-height: 150px;
-    resize: vertical;
-}
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
 
-.submit-btn {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.75rem 2rem;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-.submit-btn:hover {
-    background-color: var(--secondary-color);
-}
+        .submit-btn:hover {
+            background-color: var(--secondary-color);
+        }
 
-.submit-btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
+        .submit-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
 
-/* Alert Styles */
-.alert {
-    padding: 1rem;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-    display: none;
-}
+        /* Alert Styles to show them email was sent*/
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            display: none;
+        }
 
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
 
-.alert-error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
     </style>
 </head>
 <body>
-        <!-- Header -->
+        <!-- Header with navigation to all other pages-->
         <nav class="navbar">
             <form action="/">
                 <a href="/" class="logo" role="button">
@@ -141,7 +143,7 @@
               </div>
         </nav>
 
-    <!-- Main Content -->
+    <!-- Main Content with a form that sends an email to the gmail email specified-->
     <main class="contact-container">
         <h1 class="page-title">Contact Us</h1>
         
@@ -183,7 +185,7 @@
         </form>
     </main>
 
-    <!-- Footer -->
+    <!-- Footer with Styling-->
     <footer class="footer">
         <div class="footer-container">
             <div class="contact-info">
@@ -212,17 +214,21 @@
     </footer>
 
     <script>
+            // Navigation JavaScript
                 const navToggle = document.querySelector('.nav-toggle');
                 const navLinks = document.querySelector('.nav-links');
                 navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('show');
-        });
+                    navLinks.classList.toggle('show');
+                });
+
+        //Form submission handler
         document.getElementById('contactForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const submitBtn = e.target.querySelector('button[type="submit"]');
             submitBtn.disabled = true;
             
+            //Colect form Data
             const formData = {
                 firstName: document.getElementById('firstName').value,
                 lastName: document.getElementById('lastName').value,
@@ -232,6 +238,7 @@
             };
 
             try {
+                //Send from data to server
                 const response = await fetch('/api/contact', {
                     method: 'POST',
                     headers: {

@@ -1,3 +1,5 @@
+<!-- Author: Bryce, Ella, Alaina, Rex -->
+ <!-- Description: Jen's Story Page -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,7 +88,7 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Header that links to all the other pages -->
     <header>
         <nav class="navbar">
             <form action="/">
@@ -135,7 +137,7 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
+    <!-- Main Content With Jen's Story and Photos-->
     <main class="story-container">
         <h1 class="page-title">Jen's Story</h1>
         <div class="story-content">
@@ -183,7 +185,7 @@
         </div>
     </main>
 
-    <!-- Footer -->
+    <!-- Footer with Styling-->
     <footer class="footer">
         <div class="footer-container">
             <div class="contact-info">
@@ -212,6 +214,7 @@
 
 <!-- Navigation JavaScript -->
 <script>
+    // Mobile menu functionality
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
     const dropdowns = document.querySelectorAll('.dropdown');
@@ -239,6 +242,7 @@
         });
     });
 
+    //Close mobile menu on outside click
     document.addEventListener('click', (e) => {
         if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
             navLinks.classList.remove('show');

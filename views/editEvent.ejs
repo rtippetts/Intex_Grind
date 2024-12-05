@@ -1,3 +1,5 @@
+<!--Author: Bryce, Ella, Alaina, Rex-->
+<!--Description: Edit Events page-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Event</title>
     <style>
-        
+      /* Form container styling */
         form {
           width: 50%;
           margin: 20px auto;
@@ -52,6 +54,7 @@
 </head>
 <body>
     <h1 style="text-align: center;">Edit Event</h1>
+    <!--Event edit form-->
     <form action="/editEvent/<%= event.event_id %>" method="post">
     <label for="event_name">Event Name: </label>
     <input type="text" name="event_name" id="event_name" value="<%= event.event_name %>">
@@ -59,6 +62,7 @@
     <label for="event_date">Event Date: </label>
     <input type="date" name="event_date" id="event_date" value="<%= event.event_date.toISOString().substring(0, 10) %>">
     <br><br>
+    <!--Contact information section-->
     <label for="event_contact_organization">Contact Organization: </label>
     <input type = "text" name="event_contact_organization" id="event_contact" value="<%= contact.event_contact_organization %>">
     <br><br>
@@ -73,7 +77,8 @@
     <br><br>
     <label for="event_contact_email">Contact Email: </label>
     <input type = "email" name="event_contact_email" id="event_contact" value="<%= contact.event_contact_email %>">
-    <br><br>    
+    <br><br>
+    <!--Event Location Details-->    
     <label for="event_address">Event Address: </label>
     <input type="text" name="event_address" id="event_address" value="<%= event.event_address %>">
     <br><br>
@@ -86,8 +91,10 @@
     <label for="event_zipcode">Event Zipcode: </label>
     <input type="number" name="event_zipcode" id="event_zipcode" value="<%= event.event_zipcode %>">
     <br><br>
+    <!--Event Timing-->
     <label for="event_start_time">Event Start Time: </label>
     <% 
+      //Format start time by removing timezone
       const eventStartTime = event.event_start_time;
       const [time] = eventStartTime.split('+');
     %>
@@ -95,11 +102,13 @@
     <br><br>
     <label for="event_end_time">Event End Time: </label>
     <% 
+      //Format end time by removing timezone
       const eventEndTime = event.event_end_time;
       const [endtime] = eventEndTime.split('+');
     %>
     <input type="text" name="event_end_time" id="event_end_time" value="<%= endtime %>">
     <br><br>
+    <!--Story duration options-->
     <label for="jen_story">Jen Story Duration: </label>
     <input type="radio" value="0" <%= event.jen_story === null ? 'checked' : '' %>>0
     <input type="radio" value="5" <%= event.jen_story === 5 ? 'checked' : '' %>>5
@@ -107,9 +116,11 @@
     <input type="radio" value="15" <%= event.jen_story === 15 ? 'checked' : '' %>>15
     <input type="radio" value="30" <%= event.jen_story === 30 ? 'checked' : '' %>>30
     <br><br>
+    <!--Event description and status-->
     <label for="event_status_description">Event Status Description: </label>
     <textarea rows="10" cols="100" name="event_status_description" id="event_status_description"><%= event.event_status_description %></textarea>
     <br><br>
+    <!--Participant counts-->
     <label for="num_untrained_participants">Number of Untrained Participants</label>
     <input type="number" name="num_untrained_participants" id="num_untrained_participants" value="<%= event.num_untrained_participants || 0 %>">
     <br><br>
@@ -125,6 +136,7 @@
     <label for="num_sewers">Number of Sewists: </label>
     <input type="number" name="num_sewers" id="num_sewers" value="<%= event.num_sewers || 0 %>">
     <br><br>
+    <!--Event type selection-->
     <label for="event_type">Event Type: </label>
     <select name="event_type" id="event_type">
         <option value="SEWING" <%= event.event_type === 'SEWING' ? 'selected' : '' %>>SEWING</option>
@@ -132,12 +144,14 @@
         <option value="BOTH" <%= event.event_type === 'BOTH' ? 'selected' : '' %>>BOTH</option>
     </select>
     <br><br>
+    <!--Equipment needs-->
     <label for="num_sewing_machines_needed">Number of Sewing Machines Needed: </label>
     <input type="number" name="num_sewing_machines_needed" id="num_sewing_machines_needed" value="<%= event.num_sewing_machines_needed || 0 %>">
     <br><br>
     <label for="num_sergers_needed">Number of Sergers Needed: </label>
     <input type="number" name="num_sergers_needed" id="num_sergers_needed" value="<%= event.num_sergers_needed || 0 %>">
     <br><br>
+    <!--Venue Details-->
     <label for="venue_capacity">Venue Capacity</label>
     <input type="number" name="venue_capacity" id="venue_capacity" value="<%= event.venue_capacity || 0 %>">
     <br><br>
@@ -153,22 +167,22 @@
     <label for="rectangle_table_capacity">Rectangle Table Capacity: </label>
     <input type="number" name="rectangle_table_capacity" id="rectangle_table_capacity" value="<%= event.rectangle_table_capacity || 0 %>">
     <br><br>
+    <!--Production and comments-->
     <label for="total_production">Total Production from Event:</label>
     <input type="number" name="total_production" id="total_production" value="<%= event.total_production || 0 %>" >
     <br><br>
     <label for="comments">Comments: </label>
     <textarea rows="10" cols="100" name="comments" id="comments"><%= event.comments %></textarea>
     <br><br>
+    <!--Event status selection-->
     <label for="event_status">Event Status: </label>
     <input type="radio" value="PENDING" <%= event.event_status === 'PENDING' ? 'checked' : '' %>>PENDING
     <input type="radio" value="APPROVED" <%= event.event_status === 'APPROVED' ? 'checked' : '' %>>APPROVED
     <input type="radio" value="DECLINED" <%= event.event_status === 'DECLINED' ? 'checked' : '' %>>DECLINED
     <input type="radio" value="COMPLETED" <%= event.event_status === 'COMPLETED' ? 'checked' : '' %>>COMPLETED
     <br><br>
+    <!--Form submission-->
     <button type="submit">Save Changes</button>
-
-
-    </form>
-    
+    </form>   
 </body>
 </html>

@@ -1,6 +1,5 @@
 <!-- Author: Bryce, Ella, Alaina, Rex -->
  <!-- Description: Home Landing Page User Facing -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -169,9 +168,11 @@
             }, 500);
         }
 
+        //Begins text rotation
         updateText();
         setInterval(updateText, 7000);
 
+        //Mobile menu functionality (in minimized screen)
         const navToggle = document.querySelector('.nav-toggle');
         const navLinks = document.querySelector('.nav-links');
         const dropdowns = document.querySelectorAll('.dropdown');
