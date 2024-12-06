@@ -19,21 +19,17 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            padding: 20px;
-        }
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+.container {
+    padding: 20px;  /* Move the padding here instead */
+}
 
         .header {
             display: flex;
@@ -47,6 +43,11 @@
             gap: 10px;
             align-items: center;
         }
+
+        .navbar {
+    margin-top: 0;
+    /* If you have padding on the navbar, you might want to adjust it */
+}
 
         table {
             width: 100%;
@@ -215,14 +216,14 @@
 
             <% if (locals.user && user.vol_type === 'A') { %>
                 <form action="/volunteerOpportunities" method="get" style="display: inline;">
-                    <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
+                    <a href="/volunteerOpportunities" role="button" class="admin-btn">Volunteer Opportunities</a>
                 </form>                
                 <form action="/success" method="get" style="display: inline;">
-                    <a href="/success" role="button">Admin Dashboard</a>
+                    <a href="/success" role="button" class="admin-btn">Admin Dashboard</a>
                 </form>
             <% } else if (locals.user && user.vol_type === 'B') { %>
                 <form action="/volunteerOpportunities" method="get" style="display: inline;">
-                    <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
+                    <a href="/volunteerOpportunities" role="button" class="admin-btn">Volunteer Opportunities</a>
                 </form>
             <% } %>
         </div>

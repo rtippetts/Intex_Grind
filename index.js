@@ -107,23 +107,33 @@ app.get('/admin', (req, res) => {
     
     knex('volunteers').where('vol_type', 'A').then(admin => {
         res.render('admin', {admin, user: req.session.user})
-    });
-});
+    }).catch(error => {
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
 
 //basic volunteer permissions, loads volunteer opportunities button
 app.get('/admin', (req, res) => {
     knex('volunteers').where('vol_type', 'B').then(admin => {
         res.render('admin', {admin})
-    })
-});
+    }).catch(error => {
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
+
 
 //Edit Admin User Form and Retrieves specific admin user data for editing
 app.get('/editAdmin/:id', (req, res) => {
     knex('volunteers').where('volunteer_id', req.params.id).first()
     .then(admin => {
         res.render('editAdmin', {admin})
-    })
-});
+    }).catch(error => {
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
 
 //Processed admin user updates. Updates admin information in database
 app.post('/editAdmin/:id', (req, res) => {
@@ -141,8 +151,12 @@ app.post('/editAdmin/:id', (req, res) => {
     })
     .then(admin => {
         res.redirect('/volunteer')
-    })
-});
+    }).catch(error => {
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
+
 
 app.get('/addAdmin', (req, res) => {
     res.render('addAdmin')
@@ -167,15 +181,22 @@ app.post('/addAdmin', (req, res) => {
     })
     .then(() => {
         res.redirect('/volunteer')
-    })
-});
+    }).catch(error => {
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
+
 
 app.post('/deleteAdmin/:id', (req, res) => {
     knex('volunteers').where('volunteer_id', req.params.id).del()
     .then(admin => {
         res.redirect('/volunteer')
-    })
-});
+    }).catch(error => {
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
 
 //Displays all event requests
 app.get('/eventRequests', (req, res) => {
@@ -208,14 +229,26 @@ app.get('/eventRequests', (req, res) => {
                 .then(ev => {
                     res.render('eventRequests', {event, ev})
                 })
-        })
-    });
+        }).catch(error => {
+            console.error('Error querying database:', error);
+            res.status(500).send('Internal Server Error');
+          });
+      });
 
 // First Name, Last Name, Sewing, Sergers, Sewing Level, Time Commitment, email, phone
 
-//Edit event form and retrieves event with contact information
 app.get('/editEvent/:id', (req, res) => {
-    let event, contact;
+    let event, contact, product;
+
+    knex('event_production').join('products', 'event_production.product_id', '=', 'products.product_id')
+    .select(
+        'products.name as product_name',
+        'products.product_id as product_id',
+        'event_production.quantity_made'
+    ).where('event_production.event_id', req.params.id)
+    .then(data => {
+        product = data;
+    })
 
     // Step 1: Fetch the event data
     knex('events')
@@ -233,7 +266,7 @@ app.get('/editEvent/:id', (req, res) => {
             contact = data;
 
             // Step 3: Render the editEvent view with the event and contact data
-            res.render('editEvent', { event, contact });
+            res.render('editEvent', { event, contact, product });
         })
         .catch(error => {
             console.error(error);
@@ -273,8 +306,11 @@ app.post('/editEvent/:id', (req, res) => {
     })
     .then(event => {
         res.redirect('/eventRequests')
-    })
-})
+    }).catch(error => {
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
 
 app.get('/volunteer', (req, res) => {
     knex('volunteers').join('finding_sources', 'volunteers.vol_finding_source', '=','finding_sources.source_id')
@@ -312,8 +348,11 @@ app.get('/volunteer', (req, res) => {
     .then(admin => {
         res.render('volunteer', {volunteer, admin})
     })
-    })
-});
+    }).catch(error => {
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
 
 // app.post('/login', async (req, res) => {
 //     let username = req.body.username;
@@ -383,8 +422,11 @@ app.get('/editVolunteer/:id', (req, res) => {
         knex('finding_sources').then(finding_source => {
             res.render('editVolunteer', {volunteer, finding_source})
         })
-    })
-});
+    }).catch(error => {
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
 
 app.post('/editVolunteer/:id', (req, res) => {
     knex('volunteers').where('volunteer_id', req.params.id)
@@ -403,21 +445,30 @@ app.post('/editVolunteer/:id', (req, res) => {
     })
     .then(volunteer => {
         res.redirect('/volunteer')
-    })
-});
+    }).catch(error => {
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
 
 app.post('/deleteVolunteer/:id', (req, res) => {
     knex('volunteers').where('volunteer_id', req.params.id).del()
     .then(volunteer => {
         res.redirect('/volunteer')
-    })
-});
+    }).catch(error => {
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
 
 app.get('/addVolunteer', (req, res) => {
     knex('finding_sources').then(finding_source => {
         res.render('addVolunteer', {finding_source})
-    })
-})
+    }).catch(error => {
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
 
 app.post('/addVolunteer', (req, res) => {
     knex('volunteers').insert({
@@ -438,8 +489,11 @@ app.post('/addVolunteer', (req, res) => {
     })
     .then(volunteer => {
         res.redirect('/volunteer')
-    })
-});
+    }).catch(error => {
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
 
 app.get('/sponsors', (req, res) => {
     res.render('sponsors',  { user: req.session.user })
@@ -500,8 +554,11 @@ app.post('/deleteEvent/:id', (req, res) => {
     knex('events').where('event_id', req.params.id).del()
     .then(() => {
         res.redirect('/eventRequests')
-    })
-});
+    }).catch(error => {
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
 
 //Redirects to event form for new event creation
 app.get('/addEvent', (req, res) => {
@@ -766,5 +823,18 @@ app.post('/api/volunteer-signup', async (req, res) => {
         res.status(500).json({ message: 'Error signing up for event' });
     }
 });
+
+app.get('/logout', (req, res) => {
+    // Destroy the user's session
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error destroying session:', err);
+        return res.status(500).send('Error logging out');
+      }
+  
+      // Redirect the user to the homepage
+      return res.redirect('/');
+    });
+  });
 
 app.listen(port, () => console.log('Listening...'));

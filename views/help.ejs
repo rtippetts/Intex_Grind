@@ -120,50 +120,82 @@
  <body>
      <!-- Header with navigation to all other pages-->
      <nav class="navbar">
-         <form action="/">
-             <a href="/" class="logo" role="button">
-                 <img src="/Intex Pictures/logo-modified.png" alt="Turtle Shelter Logo">
-                 <span>Turtle Shelter Project</span>
-             </a>
-         </form>
-         <div class="nav-links">
-             <form action="/" method="GET" style="display: inline;">
-                 <a href="/" role="button">Home</a>
-             </form>
-             <form action="/jensStory" method="get" style="display: inline;">
-                 <a href="/jensStory" role="button">Jen's Story</a>
-             </form>
-             <form action="/help" method="get" style="display: inline;">
-             <div> 
-                 <a href="/help" role="button">How You Can Help</a>
-             </form>
-             </div>
-             <form action="/sponsors" method="get" style="display: inline;">
-                 <a href="/sponsors" role="button">Our Sponsors</a>
-             </form>
-             <form action="/contactUs" method="get" style="display: inline;">
-                 <a href="/contactUs" role="button">Contact Us</a>
-             </form>
-         </div>
-         <form action="/donate">
-         <div class="nav-right">
-                 <a href="https://turtleshelterproject.org/checkout/donate?donatePageId=5b6a44c588251b72932df5a0" class="donate-btn" role="button">Donate</a>
-             </form>
-             <form action="/login" method="get">
-                 <button type="submit" class="user-icon-btn" aria-label="Go to login page">
-                     <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
-                 </button>
-             </form>
-         </div>
-         <div class="mobile-controls">
-             <a href="/login" class="user-icon-btn" aria-label="Go to login page">
-               <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
-             </a>
-             <button class="nav-toggle">
-               <span class="hamburger-icon">&#9776;</span>
-             </button>
-           </div>
-     </nav>
+        <form action="/">
+            <a href="/" class="logo" role="button">
+                <img src="/Intex Pictures/logo-modified.png" alt="Turtle Shelter Logo">
+                <span>Turtle Shelter Project</span>
+            </a>
+        </form>
+        <div class="nav-links">
+            <form action="/" method="GET" style="display: inline;">
+                <a href="/" role="button">Home</a>
+            </form>
+            <form action="/jensStory" method="get" style="display: inline;">
+                <a href="/jensStory" role="button">Jen's Story</a>
+            </form>
+            <form action="/help" method="get" style="display: inline;">
+            <div> 
+                <a href="/help" role="button">How You Can Help</a>
+            </form>
+            </div>
+            <form action="/sponsors" method="get" style="display: inline;">
+                <a href="/sponsors" role="button">Our Sponsors</a>
+            </form>
+            <form action="/contactUs" method="get" style="display: inline;">
+                <a href="/contactUs" role="button">Contact Us</a>
+            </form>
+            <!-- <form action="/volunteerOpportunities" method="get" style="display: inline;">
+                <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
+            </form> -->
+
+            <% if (locals.user && user.vol_type === 'A') { %>
+                <form action="/volunteerOpportunities" method="get" style="display: inline;">
+                    <a href="/volunteerOpportunities" class="admin-btn" role="button">Volunteer Opportunities</a>
+                </form>                
+                <form action="/success" method="get" style="display: inline;">
+                    <a href="/success" class="admin-btn" role="button">Admin Dashboard</a>
+                </form>
+            <% } else if (locals.user && user.vol_type === 'B') { %>
+                <form action="/volunteerOpportunities" method="get" style="display: inline;">
+                    <a href="/volunteerOpportunities" class="admin-btn" role="button">Volunteer Opportunities</a>
+                </form>
+            <% } %>
+        </div>
+
+        <!--Right elements - login icon and donate-->
+        
+        <div class="nav-right">
+            <% if (!locals.user || user.vol_type === 'B') { %>
+              <form action="/donate">
+                <a href="https://turtleshelterproject.org/checkout/donate?donatePageId=5b6a44c588251b72932df5a0" class="donate-btn" role="button">Donate</a>
+              </form>
+              <form action="/login" method="get">
+                <button type="submit" class="user-icon-btn" aria-label="Go to login page">
+                  <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+                </button>
+              </form>
+            <% } else { %>
+              <div class="user-dropdown">
+                <button class="user-icon-btn" aria-label="User menu">
+                  <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+                </button>
+                <div class="user-dropdown-content">
+                  <a href="/logout" class="logout-btn">Log Out</a>
+                </div>
+              </div>
+            <% } %>
+        </div>
+
+
+        <div class="mobile-controls">
+            <a href="/login" class="user-icon-btn" aria-label="Go to login page">
+              <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+            </a>
+            <button class="nav-toggle">
+              <span class="hamburger-icon">&#9776;</span>
+            </button>
+          </div>
+    </nav>
  
      <!--Code for body which has two links to volunteer website and plan event website-->
      <section class="help-hero">

@@ -85,8 +85,19 @@
     <label for="event_city">Event City: </label>
     <input type="text" name="event_city" id="event_city" value="<%= event.event_city %>">
     <br><br>
-    <label for="event_state">Event State: </label>
-    <input type="text" name="event_state" id="event_state" value="<%= event.event_state %>">
+    <label for="event_state">State*</label>
+<select id="event_state" name="event_state" required>
+    <option value="" <%= !event.event_state ? 'selected' : '' %>>Select State/Territory</option>
+    <% 
+    const states = ["AL", "AK", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "GU", 
+                   "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", 
+                   "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "MP", "OH", 
+                   "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", 
+                   "WA", "WV", "WI", "WY"];
+    states.forEach(state => { %>
+        <option value="<%= state %>" <%= event.event_state === state ? 'selected' : '' %>><%= state %></option>
+    <% }); %>
+</select> 
     <br><br>
     <label for="event_zipcode">Event Zipcode: </label>
     <input type="number" name="event_zipcode" id="event_zipcode" value="<%= event.event_zipcode %>">
@@ -110,11 +121,11 @@
     <br><br>
     <!--Story duration options-->
     <label for="jen_story">Jen Story Duration: </label>
-    <input type="radio" value="0" <%= event.jen_story === null ? 'checked' : '' %>>0
-    <input type="radio" value="5" <%= event.jen_story === 5 ? 'checked' : '' %>>5
-    <input type="radio" value="10" <%= event.jen_story === 10 ? 'checked' : '' %>>10
-    <input type="radio" value="15" <%= event.jen_story === 15 ? 'checked' : '' %>>15
-    <input type="radio" value="30" <%= event.jen_story === 30 ? 'checked' : '' %>>30
+    <input name="story_options" type="radio" value="0" <%= event.jen_story === null ? 'checked' : '' %>>0
+    <input name="story_options" type="radio" value="5" <%= event.jen_story === 5 ? 'checked' : '' %>>5
+    <input name="story_options" type="radio" value="10" <%= event.jen_story === 10 ? 'checked' : '' %>>10
+    <input name="story_options" type="radio" value="15" <%= event.jen_story === 15 ? 'checked' : '' %>>15
+    <input name="story_options" type="radio" value="30" <%= event.jen_story === 30 ? 'checked' : '' %>>30
     <br><br>
     <!--Event description and status-->
     <label for="event_status_description">Event Status Description: </label>
@@ -151,6 +162,7 @@
     <label for="num_sergers_needed">Number of Sergers Needed: </label>
     <input type="number" name="num_sergers_needed" id="num_sergers_needed" value="<%= event.num_sergers_needed || 0 %>">
     <br><br>
+    
     <!--Venue Details-->
     <label for="venue_capacity">Venue Capacity</label>
     <input type="number" name="venue_capacity" id="venue_capacity" value="<%= event.venue_capacity || 0 %>">
@@ -168,18 +180,40 @@
     <input type="number" name="rectangle_table_capacity" id="rectangle_table_capacity" value="<%= event.rectangle_table_capacity || 0 %>">
     <br><br>
     <!--Production and comments-->
+
     <label for="total_production">Total Production from Event:</label>
     <input type="number" name="total_production" id="total_production" value="<%= event.total_production || 0 %>" >
     <br><br>
+    
+    <!-- Assuming product is an array of products -->
+<label for="pocket_production">Pockets Produced: </label>
+<input type="number" name="pocket_production" id="pocket_production" 
+    value="<%= product.find(p => p.product_id === 3)?.quantity_made || 0 %>">
+
+<label for="collar_production">Collars Produced: </label>
+<input type="number" name="collar_production" id="collar_production" 
+    value="<%= product.find(p => p.product_id === 4)?.quantity_made || 0 %>">
+
+<label for="envelope_production">Envelopes Produced: </label>
+<input type="number" name="envelope_production" id="envelope_production" 
+    value="<%= product.find(p => p.product_id === 5)?.quantity_made || 0 %>">
+
+<label for="vest_production">Vests Produced: </label>
+<input type="number" name="vest_production" id="vest_production" 
+    value="<%= product.find(p => p.product_id === 6)?.quantity_made || 0 %>">
+
+<label for="finished_vest_production">Complete Vests Produced: </label>
+<input type="number" name="finished_vest_production" id="finished_vest_production" 
+    value="<%= product.find(p => p.product_id === 7)?.quantity_made || 0 %>">
     <label for="comments">Comments: </label>
     <textarea rows="10" cols="100" name="comments" id="comments"><%= event.comments %></textarea>
     <br><br>
     <!--Event status selection-->
     <label for="event_status">Event Status: </label>
-    <input type="radio" value="PENDING" <%= event.event_status === 'PENDING' ? 'checked' : '' %>>PENDING
-    <input type="radio" value="APPROVED" <%= event.event_status === 'APPROVED' ? 'checked' : '' %>>APPROVED
-    <input type="radio" value="DECLINED" <%= event.event_status === 'DECLINED' ? 'checked' : '' %>>DECLINED
-    <input type="radio" value="COMPLETED" <%= event.event_status === 'COMPLETED' ? 'checked' : '' %>>COMPLETED
+    <input type="radio" name='event_status' value="PENDING" <%= event.event_status === 'PENDING' ? 'checked' : '' %>>PENDING
+    <input type="radio" name='event_status' value="APPROVED" <%= event.event_status === 'APPROVED' ? 'checked' : '' %>>APPROVED
+    <input type="radio" name='event_status' value="DECLINED" <%= event.event_status === 'DECLINED' ? 'checked' : '' %>>DECLINED
+    <input type="radio" name='event_status' value="COMPLETED" <%= event.event_status === 'COMPLETED' ? 'checked' : '' %>>COMPLETED
     <br><br>
     <!--Form submission-->
     <button type="submit">Save Changes</button>
