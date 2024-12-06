@@ -551,15 +551,30 @@ app.get('/calendar', (req, res) => {
 
 //Deletes an event by ID and redirects to event list
 app.post('/deleteEvent/:id', (req, res) => {
-    knex('events').where('event_id', req.params.id).del()
-    .then(() => {
-        res.redirect('/eventRequests')
-    }).catch(error => {
-        console.error('Error querying database:', error);
-        res.status(500).send('Internal Server Error');
-      });
-  });
-
+    // First delete related records from event_production
+    knex('event_production')
+        .where('event_id', req.params.id)
+        .del()
+        .then(() => {
+            // Then delete any records from event_volunteer table if it exists
+            return knex('event_volunteers')
+                .where('event_id', req.params.id)
+                .del();
+        })
+        .then(() => {
+            // Finally delete the event itself
+            return knex('events')
+                .where('event_id', req.params.id)
+                .del();
+        })
+        .then(() => {
+            res.redirect('/eventRequests');
+        })
+        .catch(error => {
+            console.error('Error querying database:', error);
+            res.status(500).send('Internal Server Error');
+        });
+});
 //Redirects to event form for new event creation
 app.get('/addEvent', (req, res) => {
     res.redirect('/eventForm')
