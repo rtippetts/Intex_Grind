@@ -6,6 +6,8 @@
     --nav-bg: #21A2DB;
     --nav-link-color: #fff;
     --nav-link-hover: #1B8ABF;
+    --admin-button: #112d4e;
+    --admin-button-hover: #2e4054;
 }
 * {
     margin: 0;
@@ -53,6 +55,42 @@
 .nav-links a:hover {
     background-color: var(--nav-link-hover);
 }
+/*Styles for Login Dropdown */
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.user-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.user-dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.user-dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.user-dropdown:hover .user-dropdown-content {
+    display: block;
+}
+
+
+
+
+
+
 /* Dropdown Styles */
 .dropdown {
     position: relative;
@@ -108,6 +146,21 @@
     background-color: var(--nav-link-hover);
     color: var(--nav-link-color);
 }
+
+.admin-btn {
+    background-color: var(--admin-button);
+    color: var(--nav-bg);
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+.admin-btn:hover {
+    background-color: var(--admin-button-hover);
+    color: var(--nav-link-color);
+}
+
 .user-icon {
     width: 30px;
     height: 30px;
