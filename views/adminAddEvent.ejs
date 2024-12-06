@@ -323,8 +323,20 @@
                         <label for="event_city">City*</label>
                         <input type="text" id="event_city" name="event_city" required>
 
-                        <label for="event_state">State*</label>
-                        <input type="text" id="event_state" name="event_state" required>
+                        <!-- CODE CHANGE I MADE SEND tO BRYCE -->
+                        <label for="vol_state">State*</label>
+                        <select id="vol_state" name="vol_state" required>
+                            <option value="">Select State/Territory</option>
+                            <% 
+                            const states = ["AL", "AK", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "GU", 
+                                        "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", 
+                                        "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "MP", "OH", 
+                                        "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", 
+                                        "WA", "WV", "WI", "WY"];
+                            states.forEach(state => { %>
+                                <option value="<%= state %>"><%= state %></option>
+                            <% }); %>
+                        </select>
 
                         <label for="venue_capacity">Venue Capacity*</label>
                         <input type="number" id="venue_capacity" name="venue_capacity" required min="1">
