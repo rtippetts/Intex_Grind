@@ -133,11 +133,50 @@
                   </form>
                 </td>
                 <td>
-                    <form action="/deleteEvent/<%= row.event_id %>" method="POST" style="display:inline;">
-                      <button type="submit">Delete Event</button>
-                    </form>
-                  </td>
-              </tr>
+                  <!--Delete event button-->
+                  <form action="/deleteEvent/<%= row.event_id %>" method="POST" style="display:inline;">
+                    <button type="submit">Delete Event</button>
+                  </form>
+                </td>
+                <td>
+                  <button class="view-volunteers-btn">View Volunteers</button>
+                </td>
+              <tr class="volunteer-list-row">
+                <td colspan="11">
+                  <div class="volunteer-list">
+                    <h3>Volunteers for <%= row.event_name %></h3>
+                    <table class="volunteer-table">
+                      <thead>
+                        <tr>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Email</th>
+                          <th>Phone</th>
+                          <th>Sewing Machines</th>
+                          <th>Sergers</th>
+                          <th>Time Commitment</th>
+                          <th>Sewing Level</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% if (ev.length > 0) { %>
+                          <% ev.filter(rev => rev.event_id === row.event_id).forEach(rev => { %>
+                        <!-- Example row - Replace with actual data from database -->
+                        <tr>
+                          <td><%= rev.vol_first_name %> </td>
+                          <td><%= rev.vol_last_name %></td>
+                          <td><%= rev.vol_email %></td>
+                          <td><%= rev.vol_phone %></td>
+                          <td><%= rev.sewing_machines_bringing %></td>
+                          <td><%= rev.sergers_bringing %></td>
+                          <td><%= rev.time_committment %></td>
+                          <td><%= rev.vol_sewing_level %></td>
+                        </tr>
+                     <% })} %>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
             <% }) %>
           <% } else { %>
             <!--No data message-->
