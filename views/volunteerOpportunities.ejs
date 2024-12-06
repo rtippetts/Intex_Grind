@@ -378,72 +378,79 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const signupButtons = document.querySelectorAll('.signup-btn');
-            const locationFilter = document.getElementById('location-filter');
+    document.addEventListener('DOMContentLoaded', () => {
+        const signupButtons = document.querySelectorAll('.signup-btn');
+        const locationFilter = document.getElementById('location-filter');
 
-            // Event signup toggle
-            signupButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const row = e.target.closest('.event-row');
-                    const signupFormRow = row.nextElementSibling;
-                    
-                    // Hide all other signup forms
-                    document.querySelectorAll('.signup-form-row').forEach(formRow => {
-                        if (formRow !== signupFormRow) {
-                            formRow.style.display = 'none';
-                        }
-                    });
-
-                    // Toggle current signup form
-                    signupFormRow.style.display = 
-                        signupFormRow.style.display === 'table-row' ? 'none' : 'table-row';
-                });
-            });
-
-            // Location filtering
-            locationFilter.addEventListener('change', (e) => {
-                const selectedLocation = e.target.value;
-                const eventRows = document.querySelectorAll('.event-row');
-
-                eventRows.forEach(row => {
-                    if (selectedLocation === '' || row.dataset.location === selectedLocation) {
-                        row.style.display = '';
-                    } else {
-                        row.style.display = 'none';
+        // Event signup toggle
+        signupButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const row = e.target.closest('.event-row');
+                const signupFormRow = row.nextElementSibling;
+                
+                // Hide all other signup forms
+                document.querySelectorAll('.signup-form-row').forEach(formRow => {
+                    if (formRow !== signupFormRow) {
+                        formRow.style.display = 'none';
                     }
                 });
-            });
 
-            // Form submission
-            document.querySelectorAll('.volunteer-signup-form').forEach(form => {
-                form.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    const formData = new FormData(e.target);
-                    const data = Object.fromEntries(formData.entries());
-
-                    try {
-                        const response = await fetch('/api/volunteer-signup', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(data)
-                        });
-
-                        if (response.ok) {
-                            alert('Successfully signed up!');
-                            e.target.closest('.signup-form-row').style.display = 'none';
-                        } else {
-                            alert('Error signing up. Please try again.');
-                        }
-                    } catch (error) {
-                        alert('Error signing up. Please try again.');
-                        console.error('Signup error:', error);
-                    }
-                });
+                // Toggle current signup form
+                signupFormRow.style.display = 
+                    signupFormRow.style.display === 'table-row' ? 'none' : 'table-row';
             });
         });
-    </script>
+
+        // Location filtering
+        locationFilter.addEventListener('change', (e) => {
+            const selectedLocation = e.target.value;
+            const eventRows = document.querySelectorAll('.event-row');
+
+            eventRows.forEach(row => {
+                if (selectedLocation === '' || row.dataset.location === selectedLocation) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // Form submission
+        document.querySelectorAll('.volunteer-signup-form').forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = {
+                    event_id: parseInt(e.target.querySelector('input[name="eventId"]').value),
+                    // Assuming volunteer_id comes from the logged-in user's session
+                    sewing_machines_bringing: parseInt(e.target.querySelector('#sewing-machines-provided').value) || 0,
+                    sergers_bringing: parseInt(e.target.querySelector('#sergers-provided').value) || 0,
+                    time_committment: e.target.querySelector('#time-slot').value
+                };
+
+                try {
+                    const response = await fetch('/api/volunteer-signup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (response.ok) {
+                        alert('Successfully signed up!');
+                        e.target.closest('.signup-form-row').style.display = 'none';
+                    } else {
+                        const errorData = await response.json();
+                        alert(errorData.message || 'Error signing up. Please try again.');
+                    }
+                } catch (error) {
+                    alert('Error signing up. Please try again.');
+                    console.error('Signup error:', error);
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

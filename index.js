@@ -55,7 +55,7 @@ app.get('/volunteerOpportunities', async (req, res) => {
             .orderBy('event_date', 'asc');
         
         // Render the volunteer events page
-        res.render('volunteerOpportunities', { event });
+        res.render('volunteerOpportunities', { event, user : req.session.user });
     } catch (error) {
         console.error('Error fetching events:', error);
         res.status(500).send('Error loading events');
@@ -63,15 +63,15 @@ app.get('/volunteerOpportunities', async (req, res) => {
 });
 
 app.get('/jensStory', (req, res) => {
-    res.render('jensStory', { user: req.session.user }) 
+    res.render('jensStory', { user: req.session.user });
 });
 
 app.get('/volunteerForm', (req, res) => {
-    res.render('volunteerForm')
+    res.render('volunteerForm');
 });
 
 app.get('/help', (req, res) => {
-    res.render('help', { user: req.session.user }) 
+    res.render('help', { user: req.session.user })
 });
 
 app.get('/donate', (req, res) => {
@@ -79,7 +79,7 @@ app.get('/donate', (req, res) => {
 });
 
 app.get('/contactUs', (req, res) => {
-    res.render('contactUs', { user: req.session.user }) 
+    res.render('contactUs', { user: req.session.user })
 })
 
 app.get('/login', (req, res) => {
@@ -316,7 +316,7 @@ app.get('/volunteer', (req, res) => {
 app.post('/login', async (req, res) => {
     try {
         let user = await knex('volunteers')
-            .select('username', 'password', 'vol_type')
+            .select('volunteer_id','username', 'password', 'vol_type')
             .where('username', req.body.username)
             .first();
             
@@ -325,6 +325,7 @@ app.post('/login', async (req, res) => {
         }
 
         req.session.user = {
+            id: user.volunteer_id,
             username: user.username,
             vol_type: user.vol_type
         };
@@ -401,7 +402,7 @@ app.post('/addVolunteer', (req, res) => {
 });
 
 app.get('/sponsors', (req, res) => {
-    res.render('sponsors', { user: req.session.user }) 
+    res.render('sponsors',  { user: req.session.user })
 });
 
 // Add after your other requires
@@ -678,19 +679,44 @@ app.post('/adminSubmitEvent', async (req, res) => {
     }
 });
 
-//logout functionality
+// Add this with your other routes
+app.post('/api/volunteer-signup', async (req, res) => {
+    // Check if user is logged in
+    if (!req.session.user) {
+        return res.status(401).json({ message: 'Please log in to volunteer' });
+    }
 
-app.get('/logout', (req, res) => {
-    // Destroy the user's session
-    req.session.destroy((err) => {
-      if (err) {
-        console.error('Error destroying session:', err);
-        return res.status(500).send('Error logging out');
-      }
-  
-      // Redirect the user to the homepage
-      return res.redirect('/');
-    });
-  });
+    try {
+        const { event_id, sewing_machines_bringing, sergers_bringing, time_committment } = req.body;
+        const volunteer_id = req.session.user.id; // Get volunteer ID from session
+
+        // Check if volunteer has already signed up for this event
+        const existingSignup = await knex('event_volunteers')
+            .where({
+                event_id: event_id,
+                volunteer_id: volunteer_id
+            })
+            .first();
+
+        if (existingSignup) {
+            return res.status(400).json({ message: 'You have already signed up for this event' });
+        }
+
+        // Insert new volunteer signup
+        await knex('event_volunteers')
+            .insert({
+                event_id,
+                volunteer_id,
+                sewing_machines_bringing,
+                sergers_bringing,
+                time_committment
+            });
+
+        res.status(200).json({ message: 'Successfully signed up for event!' });
+    } catch (error) {
+        console.error('Error in volunteer signup:', error);
+        res.status(500).json({ message: 'Error signing up for event' });
+    }
+});
 
 app.listen(port, () => console.log('Listening...'));

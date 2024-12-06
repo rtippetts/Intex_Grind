@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<!-- Author: Bryce, Ella, Alaina, Rex -->
+<!-- Description: Admin view of all event requests with the ability to edit event, delete event, and add event -->
+<!DOCTYPE html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,8 +8,36 @@
     <title>Event Requests</title>
     <link rel="stylesheet" href="/adminstyles.css">
 </head>
+<style>
+    .volunteer-list-row {
+    display: none;
+    background-color: #f9f9f9;
+  }
 
-<!-- Header Component -->
+  .volunteer-list {
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .volunteer-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  .volunteer-table th,
+  .volunteer-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .volunteer-table th {
+    background-color: #112D4E;
+    color: white;
+  }
+</style>
+<!-- Header Component For Admin Side of things-->
 <header>
     <nav class="navbar">
       <form action="/success" method="get">
@@ -39,22 +69,25 @@
         </button>
     </form>
 </div>
-<div class="mobile-controls">
-<a href="/login" class="user-icon-btn" aria-label="Go to login page">
-  <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
-</a>
-<button class="nav-toggle">
-  <span class="hamburger-icon">&#9776;</span>
-</button>
-</div>
+        <!-- Mobile navigation controls -->
+  <div class="mobile-controls">
+      <a href="/login" class="user-icon-btn" aria-label="Go to login page">
+        <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+      </a>
+      <button class="nav-toggle">
+        <span class="hamburger-icon">&#9776;</span>
+      </button>
+  </div>
   </nav>
   </header>
 
 <body>
+  <!--Events table section-->
     <br>
     <h1 class="volunteer-title">Events</h1>
     <table>
         <thead>
+          <!--Table Headers-->
           <tr>
             <th>Name</th>
             <th>Date</th>
@@ -66,8 +99,10 @@
             <th>Status</th>
             <th></th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
+        <!-- Table body with dynamic event data -->
         <tbody>
           <% if (event.length > 0) { %>
             <% event.forEach(row => { %>
@@ -78,32 +113,70 @@
                 <td><%= row.event_city %></td>
                 <td><%= row.event_state %></td>
                 <td>
-                    <% 
-                      const startTimeString = row.event_start_time.split('+')[0];
-                    %>
-                    <%= startTimeString %>
-                  </td>
-                  <td>
-                    <%
-                      const endTimeString = row.event_end_time.split('+')[0];
-                    %>
-                    <%= endTimeString %>
-                  </td>
+                  <% 
+                    const startTimeString = row.event_start_time.split('+')[0];
+                  %>
+                  <%= startTimeString %>
+                </td>
+                <td>
+                  <%
+                    const endTimeString = row.event_end_time.split('+')[0];
+                  %>
+                  <%= endTimeString %>
+                </td>
                 <td><%= row.contact_org %></td>
                 <td><%= row.event_status %></td>
                 <td>
+                  <!--Edit Event-->
                   <form action="/editEvent/<%= row.event_id %>" method="GET" style="display:inline;">
                     <button type="submit">View and Edit Event</button>
                   </form>
                 </td>
                 <td>
-                    <form action="/deleteEvent/<%= row.event_id %>" method="POST" style="display:inline;">
-                      <button type="submit">Delete Event</button>
-                    </form>
-                  </td>
-              </tr>
+                  <!--Delete event button-->
+                  <form action="/deleteEvent/<%= row.event_id %>" method="POST" style="display:inline;">
+                    <button type="submit">Delete Event</button>
+                  </form>
+                </td>
+                <td>
+                  <button class="view-volunteers-btn">View Volunteers</button>
+                </td>
+              <tr class="volunteer-list-row">
+                <td colspan="11">
+                  <div class="volunteer-list">
+                    <h3>Volunteers for [Event Name]</h3>
+                    <table class="volunteer-table">
+                      <thead>
+                        <tr>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Email</th>
+                          <th>Phone</th>
+                          <th>Sewing Machines</th>
+                          <th>Sergers</th>
+                          <th>Time Commitment</th>
+                          <th>Sewing Level</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Example row - Replace with actual data from database -->
+                        <tr>
+                          <td>[First Name]</td>
+                          <td>[Last Name]</td>
+                          <td>[Email]</td>
+                          <td>[Phone]</td>
+                          <td>[# of Machines]</td>
+                          <td>[# of Sergers]</td>
+                          <td>[Time Slot]</td>
+                          <td>[Level]</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
             <% }) %>
           <% } else { %>
+            <!--No data message-->
             <tr class="no-data">
                 <td colspan="13">No data available</td>
             </tr>
@@ -111,12 +184,12 @@
         </tbody>
       </table>
       <div style="text-align: center;">
+        <!--Add event button-->
         <form action="/adminAddEvent" method="GET">
           <button type="submit">ADD EVENT</button>
       </form>
       </div>
 </body>
-
 
 
 <!-- Footer Component -->
@@ -153,10 +226,12 @@
     const navLinks = document.querySelector('.nav-links');
     const dropdowns = document.querySelectorAll('.dropdown');
      
+    //Toggle mobile menu
     navToggle.addEventListener('click', () => {
         navLinks.classList.toggle('show');
     });
      
+    //Handle dropdown menus
     dropdowns.forEach(dropdown => {
         const dropdownLink = dropdown.querySelector('a');
                  
@@ -183,6 +258,29 @@
                 dropdown.classList.remove('active');
             });
         }
+    });
+
+    //ADDED
+    document.addEventListener('DOMContentLoaded', () => {
+    const viewVolunteerButtons = document.querySelectorAll('.view-volunteers-btn');
+
+    viewVolunteerButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const row = e.target.closest('tr');
+            const volunteerListRow = row.nextElementSibling;
+            
+            // Hide all other volunteer lists
+            document.querySelectorAll('.volunteer-list-row').forEach(listRow => {
+                if (listRow !== volunteerListRow) {
+                    listRow.style.display = 'none';
+                }
+            });
+
+            // Toggle current volunteer list
+            volunteerListRow.style.display = 
+                volunteerListRow.style.display === 'table-row' ? 'none' : 'table-row';
+        });
+      });
     });
 </script>
 </html>
