@@ -1,272 +1,260 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How You Can Help - Turtle Shelter Project</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        .help-hero {
-            background: linear-gradient(135deg, #fff5f5, #f8f9fa);
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-
-        .help-title {
-            font-size: 3.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .help-title:hover {
-            transform: translateY(-10px);
-        }
-
-        .help-subtitle {
-            font-size: 1.5rem;
-            color: var(--text-color);
-            max-width: 800px;
-            margin: 0 auto 3rem;
-        }
-
-        .help-options {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;  /* Slightly increased gap */
-            max-width: 1400px;  /* Increased to accommodate larger cards */
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .help-card {
-            flex: 1;
-            max-width: 600px;  /* Increased from 400px */
-            background: white;
-            border-radius: 16px;
-            padding: 3rem;  /* Increased from 2rem */
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .help-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-icon {
-            max-width: 250px;  /* Increased from 200px */
-            max-height: 250px;  /* Increased from 200px */
-            width: auto;
-            height: auto;
-            margin: 0 auto 2rem;  /* Slightly increased bottom margin */
-            display: block;
-            object-fit: contain;
-            border-radius: 20px;  /* Added rounded corners */
-        }
-
-        .card-title {
-            font-size: 2rem;  /* Slightly increased from 1.8rem */
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .card-description {
-            color: var(--text-color);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-            font-size: 1.1rem;  /* Slightly increased */
-        }
-
-        .card-link {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-
-        .card-link:hover {
-            background-color: var(--secondary-color);
-        }
-
-        @media (max-width: 768px) {
-            .help-options {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .help-card {
-                width: 100%;
-            }
-
-            .help-title {
-                font-size: 2.5rem;
-            }
-
-            .help-subtitle {
-                font-size: 1.2rem;
-                padding: 0 1rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <nav class="navbar">
-        <form action="/">
-            <a href="/" class="logo" role="button">
-                <img src="/Intex Pictures/logo-modified.png" alt="Turtle Shelter Logo">
-                <span>Turtle Shelter Project</span>
-            </a>
-        </form>
-        <div class="nav-links">
-            <form action="/" method="GET" style="display: inline;">
-                <a href="/" role="button">Home</a>
-            </form>
-            <form action="/jensStory" method="get" style="display: inline;">
-                <a href="/jensStory" role="button">Jen's Story</a>
-            </form>
-            <form action="/help" method="get" style="display: inline;">
-            <div> 
-                <a href="/help" role="button">How You Can Help</a>
-            </form>
-            </div>
-            <form action="/sponsors" method="get" style="display: inline;">
-                <a href="/sponsors" role="button">Our Sponsors</a>
-            </form>
-            <form action="/contactUs" method="get" style="display: inline;">
-                <a href="/contactUs" role="button">Contact Us</a>
-            </form>
-            <!-- <form action="/volunteerOpportunities" method="get" style="display: inline;">
-                <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
-            </form> -->
-
-            <% if (locals.user && user.vol_type === 'A') { %>
-                <form action="/volunteerOpportunities" method="get" style="display: inline;">
-                    <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
-                </form>                
-                <form action="/success" method="get" style="display: inline;">
-                    <a href="/success" role="button">Admin Dashboard</a>
-                </form>
-            <% } else if (locals.user && user.vol_type === 'B') { %>
-                <form action="/volunteerOpportunities" method="get" style="display: inline;">
-                    <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
-                </form>
-            <% } %>
-        </div>
-        <div class="nav-right">
-            <% if (!locals.user || user.vol_type === 'B') { %>
-                <form action="/donate">
-                    <a href="https://turtleshelterproject.org/checkout/donate?donatePageId=5b6a44c588251b72932df5a0" class="donate-btn" role="button">Donate</a>
-                </form>
-            <% } %>
-            <form action="/login" method="get">
-                <button type="submit" class="user-icon-btn" aria-label="Go to login page">
-                    <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
-                </button>
-            </form>
-        </div>
-        <div class="mobile-controls">
-            <a href="/login" class="user-icon-btn" aria-label="Go to login page">
-              <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
-            </a>
-            <button class="nav-toggle">
-              <span class="hamburger-icon">&#9776;</span>
-            </button>
-          </div>
-    </nav>
-
-    <section class="help-hero">
-        <h1 class="help-title">Make a Difference</h1>
-        <p class="help-subtitle">Join us in our mission to help those experiencing homelessness stay warm and safe. There are several ways you can contribute to the Turtle Shelter Project.</p>
-        
-        <div class="help-options">
-            <div class="help-card">
-                <img src="Intex Pictures/volunteer.png" alt="Volunteer Icon" class="card-icon">
-                <h2 class="card-title">Volunteer</h2>
-                <p class="card-description">Join our community of dedicated volunteers who help create and distribute Turtle Shelter Vests. No experience necessary - we'll teach you everything you need to know.</p>
-                <form action="/volunteerForm" method="get">
-                    <a href="/volunteerForm" class="card-link">Learn More →</a>
-                </form>
-            </div>
-            
-            <div class="help-card">
-                <img src="Intex Pictures/churchevent.png" alt="Event Icon" class="card-icon">
-                <h2 class="card-title">Plan an Event</h2>
-                <p class="card-description">Organize a vest-making event with your community, church group, or organization. We'll provide materials and guidance to make your event successful.</p>
-                <form action="/eventForm" method="get">
-                    <a href="/eventForm" class="card-link">Get Started →</a>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="contact-info">
-                <div class="contact-item">
-                    <img src="Intex Pictures/phone.png" alt="Phone Icon">
-                    <a href="tel:+18018723190">801-872-3190</a>
-                </div>
-                <div class="contact-item">
-                    <img src="Intex Pictures/mail.png" alt="Mail Icon">
-                    <a href="mailto:turtleshelterproject@gmail.com">turtleshelterproject@gmail.com</a>
-                </div>
-                <div class="contact-item">
-                    <i>📍</i>
-                    <span>PO Box 382, Kaysville, UT 84037</span>
-                </div>
-            </div>
-            <div class="social-links">
-                <a href="https://facebook.com/turtleshelterproject" target="_blank" aria-label="Facebook">
-                    <img src="Intex Pictures/facebook.png" alt="" class="social-icon">
-                </a>
-                <a href="https://instagram.com/turtleshelterproject" target="_blank" aria-label="Instagram">
-                    <img src="Intex Pictures/instagram2.png" alt="" class="social-icon">
-                </a>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        const navToggle = document.querySelector('.nav-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        const dropdowns = document.querySelectorAll('.dropdown');
-
-        navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('show');
-        });
-
-        dropdowns.forEach(dropdown => {
-            const dropdownLink = dropdown.querySelector('a');
-            
-            dropdownLink.addEventListener('click', (e) => {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    dropdowns.forEach(other => {
-                        if (other !== dropdown) {
-                            other.classList.remove('active');
-                        }
-                    });
-                    
-                    dropdown.classList.toggle('active');
-                }
-            });
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
-                navLinks.classList.remove('show');
-                dropdowns.forEach(dropdown => {
-                    dropdown.classList.remove('active');
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+<!-- Author: Bryce, Ella, Alaina, Rex -->
+ <!-- Description: Contact Us Form that sends an email to email specified (if chosen we would change it to sending to their email not our email) -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>How You Can Help - Turtle Shelter Project</title>
+     <link rel="stylesheet" href="styles.css">
+     <style>
+         /* Special How You can Help Styles for volunteer and plan event cards*/
+         .help-hero {
+             background: linear-gradient(135deg, #fff5f5, #f8f9fa);
+             padding: 4rem 2rem;
+             text-align: center;
+         }
+ 
+         .help-title {
+             font-size: 3.5rem;
+             color: var(--primary-color);
+             margin-bottom: 1.5rem;
+             transition: transform 0.3s ease;
+         }
+         
+         .help-title:hover {
+             transform: translateY(-10px);
+         }
+ 
+         .help-subtitle {
+             font-size: 1.5rem;
+             color: var(--text-color);
+             max-width: 800px;
+             margin: 0 auto 3rem;
+         }
+ 
+         .help-options {
+             display: flex;
+             justify-content: center;
+             gap: 3rem;  /* Slightly increased gap */
+             max-width: 1400px;  /* Increased to accommodate larger cards */
+             margin: 0 auto;
+             padding: 2rem;
+         }
+ 
+         .help-card {
+             flex: 1;
+             max-width: 600px;  /* Increased from 400px */
+             background: white;
+             border-radius: 16px;
+             padding: 3rem;  /* Increased from 2rem */
+             text-align: center;
+             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+             transition: transform 0.3s ease, box-shadow 0.3s ease;
+         }
+ 
+         .help-card:hover {
+             transform: translateY(-5px);
+             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+         }
+ 
+         .card-icon {
+             max-width: 400px;  /* Increased from 200px */
+             max-height: 400px;  /* Increased from 200px */
+             width: auto;
+             height: auto;
+             margin: 0 auto 2rem;  /* Slightly increased bottom margin */
+             display: block;
+             object-fit: contain;
+             border-radius: 20px;  /* Added rounded corners */
+         }
+ 
+         .card-title {
+             font-size: 2rem;  /* Slightly increased from 1.8rem */
+             color: var(--primary-color);
+             margin-bottom: 1rem;
+         }
+ 
+         .card-description {
+             color: var(--text-color);
+             margin-bottom: 1.5rem;
+             line-height: 1.6;
+             font-size: 1.1rem;  /* Slightly increased */
+         }
+ 
+         .card-link {
+             display: inline-block;
+             padding: 0.8rem 1.5rem;
+             background-color: var(--primary-color);
+             color: white;
+             text-decoration: none;
+             border-radius: 4px;
+             transition: background-color 0.3s;
+         }
+ 
+         .card-link:hover {
+             background-color: var(--secondary-color);
+         }
+ 
+         @media (max-width: 768px) {
+             .help-options {
+                 flex-direction: column;
+                 align-items: center;
+             }
+ 
+             .help-card {
+                 width: 100%;
+             }
+ 
+             .help-title {
+                 font-size: 2.5rem;
+             }
+ 
+             .help-subtitle {
+                 font-size: 1.2rem;
+                 padding: 0 1rem;
+             }
+         }
+     </style>
+ </head>
+ <body>
+     <!-- Header with navigation to all other pages-->
+     <nav class="navbar">
+         <form action="/">
+             <a href="/" class="logo" role="button">
+                 <img src="/Intex Pictures/logo-modified.png" alt="Turtle Shelter Logo">
+                 <span>Turtle Shelter Project</span>
+             </a>
+         </form>
+         <div class="nav-links">
+             <form action="/" method="GET" style="display: inline;">
+                 <a href="/" role="button">Home</a>
+             </form>
+             <form action="/jensStory" method="get" style="display: inline;">
+                 <a href="/jensStory" role="button">Jen's Story</a>
+             </form>
+             <form action="/help" method="get" style="display: inline;">
+             <div> 
+                 <a href="/help" role="button">How You Can Help</a>
+             </form>
+             </div>
+             <form action="/sponsors" method="get" style="display: inline;">
+                 <a href="/sponsors" role="button">Our Sponsors</a>
+             </form>
+             <form action="/contactUs" method="get" style="display: inline;">
+                 <a href="/contactUs" role="button">Contact Us</a>
+             </form>
+         </div>
+         <form action="/donate">
+         <div class="nav-right">
+                 <a href="https://turtleshelterproject.org/checkout/donate?donatePageId=5b6a44c588251b72932df5a0" class="donate-btn" role="button">Donate</a>
+             </form>
+             <form action="/login" method="get">
+                 <button type="submit" class="user-icon-btn" aria-label="Go to login page">
+                     <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+                 </button>
+             </form>
+         </div>
+         <div class="mobile-controls">
+             <a href="/login" class="user-icon-btn" aria-label="Go to login page">
+               <img src="Intex Pictures/icons8-male-user-96.png" alt="User Icon" class="user-icon">
+             </a>
+             <button class="nav-toggle">
+               <span class="hamburger-icon">&#9776;</span>
+             </button>
+           </div>
+     </nav>
+ 
+     <!--Code for body which has two links to volunteer website and plan event website-->
+     <section class="help-hero">
+         <h1 class="help-title">Make a Difference</h1>
+         <p class="help-subtitle">Join us in our mission to help those experiencing homelessness stay warm and safe. There are several ways you can contribute to the Turtle Shelter Project.</p>
+         
+         <div class="help-options">
+             <div class="help-card">
+                 <img src="Intex Pictures/volunteer.png" alt="Volunteer Icon" class="card-icon">
+                 <h2 class="card-title">Volunteer</h2>
+                 <p class="card-description">Join our community of dedicated volunteers who help create and distribute Turtle Shelter Vests. No experience necessary - we'll teach you everything you need to know.</p>
+                 <form action="/volunteerForm" method="get">
+                     <a href="/volunteerForm" class="card-link">Learn More →</a>
+                 </form>
+             </div>
+             
+             <div class="help-card">
+                 <img src="Intex Pictures/churchevent.png" alt="Event Icon" class="card-icon">
+                 <h2 class="card-title">Plan an Event</h2>
+                 <p class="card-description">Organize a vest-making event with your community, church group, or organization. We'll provide materials and guidance to make your event successful.</p>
+                 <form action="/eventForm" method="get">
+                     <a href="/eventForm" class="card-link">Get Started →</a>
+                 </form>
+             </div>
+         </div>
+     </section>
+     
+     <!-- Footer with Styling-->
+     <footer class="footer">
+         <div class="footer-container">
+             <div class="contact-info">
+                 <div class="contact-item">
+                     <img src="Intex Pictures/phone.png" alt="Phone Icon">
+                     <a href="tel:+18018723190">801-872-3190</a>
+                 </div>
+                 <div class="contact-item">
+                     <img src="Intex Pictures/mail.png" alt="Mail Icon">
+                     <a href="mailto:turtleshelterproject@gmail.com">turtleshelterproject@gmail.com</a>
+                 </div>
+                 <div class="contact-item">
+                     <i>📍</i>
+                     <span>PO Box 382, Kaysville, UT 84037</span>
+                 </div>
+             </div>
+             <div class="social-links">
+                 <a href="https://facebook.com/turtleshelterproject" target="_blank" aria-label="Facebook">
+                     <img src="Intex Pictures/facebook.png" alt="" class="social-icon">
+                 </a>
+                 <a href="https://instagram.com/turtleshelterproject" target="_blank" aria-label="Instagram">
+                     <img src="Intex Pictures/instagram2.png" alt="" class="social-icon">
+                 </a>
+             </div>
+         </div>
+     </footer>
+ 
+     <script>
+         const navToggle = document.querySelector('.nav-toggle');
+         const navLinks = document.querySelector('.nav-links');
+         const dropdowns = document.querySelectorAll('.dropdown');
+ 
+         navToggle.addEventListener('click', () => {
+             navLinks.classList.toggle('show');
+         });
+ 
+         dropdowns.forEach(dropdown => {
+             const dropdownLink = dropdown.querySelector('a');
+             
+             dropdownLink.addEventListener('click', (e) => {
+                 if (window.innerWidth <= 768) {
+                     e.preventDefault();
+                     e.stopPropagation();
+                     
+                     dropdowns.forEach(other => {
+                         if (other !== dropdown) {
+                             other.classList.remove('active');
+                         }
+                     });
+                     
+                     dropdown.classList.toggle('active');
+                 }
+             });
+         });
+ 
+         document.addEventListener('click', (e) => {
+             if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+                 navLinks.classList.remove('show');
+                 dropdowns.forEach(dropdown => {
+                     dropdown.classList.remove('active');
+                 });
+             }
+         });
+     </script>
+ </body>
+ </html>

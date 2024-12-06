@@ -110,7 +110,7 @@
                     <a href="/jensStory" role="button">Jen's Story</a>
                 </form>
                 <form action="/help" method="get" style="display: inline;">
-                <div> 
+                <div>
                     <a href="/help" role="button">How You Can Help</a>
                 </form>
                 </div>
@@ -120,20 +120,17 @@
                 <form action="/contactUs" method="get" style="display: inline;">
                     <a href="/contactUs" role="button">Contact Us</a>
                 </form>
-                <!-- <form action="/volunteerOpportunities" method="get" style="display: inline;">
-                    <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
-                </form> -->
-    
+
                 <% if (locals.user && user.vol_type === 'A') { %>
                     <form action="/volunteerOpportunities" method="get" style="display: inline;">
-                        <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
+                        <a href="/volunteerOpportunities" class="admin-btn" role="button">Volunteer Opportunities</a>
                     </form>                
                     <form action="/success" method="get" style="display: inline;">
-                        <a href="/success" role="button">Admin Dashboard</a>
+                        <a href="/success" class="admin-btn" role="button">Admin Dashboard</a>
                     </form>
                 <% } else if (locals.user && user.vol_type === 'B') { %>
                     <form action="/volunteerOpportunities" method="get" style="display: inline;">
-                        <a href="/volunteerOpportunities" role="button">Volunteer Opportunities</a>
+                        <a href="/volunteerOpportunities" class="admin-btn" role="button">Volunteer Opportunities</a>
                     </form>
                 <% } %>
             </div>
@@ -158,7 +155,6 @@
                 </button>
               </div>
         </nav>
-
     <!-- Main Content -->
     <main class="contact-container">
         <h1 class="page-title">Contact Us</h1>
