@@ -737,7 +737,7 @@ app.post('/adminSubmitEvent', async (req, res) => {
             event_date: req.body.event_date,
             event_address: req.body.event_address.toUpperCase(),
             event_city: req.body.event_city.toUpperCase(),
-            event_state: req.body.event_state.toUpperCase(),
+            event_state: req.body.event_state,
             event_zipcode: req.body.event_zip_code,
             event_start_time: req.body.event_start_time,
             event_end_time: req.body.event_end_time,
