@@ -101,6 +101,12 @@
       <% }) %>
     </select>
 
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" value="" required oninput="this.value = this.value.toUpperCase()">
+
+    <label for="password">Password</label>
+    <input type="text" id="password" name="password" value="" required>
+
     <!-- Submit Button -->
     <button type="submit">Save Changes</button>
   </form>

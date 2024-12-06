@@ -193,11 +193,25 @@ app.get('/eventRequests', (req, res) => {
         'events.event_status'
     )
     .then(event => {
-        knex('contacts').then(contact => {
-            res.render('eventRequests', {event, contact})
+                knex('event_volunteers').leftJoin('volunteers', 'event_volunteers.volunteer_id', '=', 'volunteers.volunteer_id')
+                .select('event_volunteers.event_id',
+                    'event_volunteers.volunteer_id',
+                    'volunteers.vol_first_name as vol_first_name',
+                    'volunteers.vol_last_name as vol_last_name',
+                    'volunteers.vol_email as vol_email',
+                    'volunteers.vol_phone as vol_phone',
+                    'volunteers.vol_sewing_level as vol_sewing_level',
+                    'event_volunteers.sewing_machines_bringing',
+                    'event_volunteers.sergers_bringing',
+                    'event_volunteers.time_committment'
+                )
+                .then(ev => {
+                    res.render('eventRequests', {event, ev})
+                })
         })
-    })
-});
+    });
+
+// First Name, Last Name, Sewing, Sergers, Sewing Level, Time Commitment, email, phone
 
 //Edit event form and retrieves event with contact information
 app.get('/editEvent/:id', (req, res) => {
@@ -276,7 +290,8 @@ app.get('/volunteer', (req, res) => {
         'volunteers.vol_zipcode',
         'volunteers.vol_sewing_level',
         'volunteers.vol_available_monthly_hours',
-        'finding_sources.source_type as vol_finding_source'
+        'finding_sources.source_type as vol_finding_source',
+        'volunteers.username'
     ).where('vol_type', 'B')
     .then(volunteer => {
         knex('volunteers')
@@ -416,6 +431,8 @@ app.post('/addVolunteer', (req, res) => {
         vol_sewing_level: req.body.vol_sewing_level,
         vol_available_monthly_hours: req.body.vol_available_monthly_hours,
         vol_finding_source: req.body.vol_finding_source,
+        username: req.body.username,
+        password: req.body.password,
         vol_type: 'B'
     })
     .then(volunteer => {

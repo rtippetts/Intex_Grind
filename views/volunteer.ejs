@@ -71,6 +71,8 @@
             <th>Sewing Level</th>
             <th>Available Monthly Hours</th>
             <th>Finding Source</th>
+            <th>Username</th>
+            <th></th>
             <th></th>
             <th></th>
           </tr>
@@ -91,6 +93,7 @@
                 <td><%= row.vol_sewing_level %></td>
                 <td><%= row.vol_available_monthly_hours %></td>
                 <td><%= row.vol_finding_source %></td>
+                <td><%= row.username %></td>
                 <td>
                   <form action="/editVolunteer/<%= row.volunteer_id %>" method="GET" style="display:inline;">
                     <button type="submit">Edit</button>

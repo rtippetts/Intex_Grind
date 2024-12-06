@@ -8,7 +8,35 @@
     <title>Event Requests</title>
     <link rel="stylesheet" href="/adminstyles.css">
 </head>
+<style>
+    .volunteer-list-row {
+    display: none;
+    background-color: #f9f9f9;
+  }
 
+  .volunteer-list {
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .volunteer-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  .volunteer-table th,
+  .volunteer-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .volunteer-table th {
+    background-color: #112D4E;
+    color: white;
+  }
+</style>
 <!-- Header Component For Admin Side of things-->
 <header>
     <nav class="navbar">
@@ -71,6 +99,7 @@
             <th>Status</th>
             <th></th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <!-- Table body with dynamic event data -->
@@ -83,20 +112,18 @@
                 <td><%= new Date(row.event_date).toLocaleDateString() %></td>
                 <td><%= row.event_city %></td>
                 <td><%= row.event_state %></td>
-                <!--Format start time-->
                 <td>
-                    <% 
-                      const startTimeString = row.event_start_time.split('+')[0];
-                    %>
-                    <%= startTimeString %>
-                  </td>
-                  <!--Format end time-->
-                  <td>
-                    <%
-                      const endTimeString = row.event_end_time.split('+')[0];
-                    %>
-                    <%= endTimeString %>
-                  </td>
+                  <% 
+                    const startTimeString = row.event_start_time.split('+')[0];
+                  %>
+                  <%= startTimeString %>
+                </td>
+                <td>
+                  <%
+                    const endTimeString = row.event_end_time.split('+')[0];
+                  %>
+                  <%= endTimeString %>
+                </td>
                 <td><%= row.contact_org %></td>
                 <td><%= row.event_status %></td>
                 <td>
@@ -107,11 +134,49 @@
                 </td>
                 <td>
                   <!--Delete event button-->
-                    <form action="/deleteEvent/<%= row.event_id %>" method="POST" style="display:inline;">
-                      <button type="submit">Delete Event</button>
-                    </form>
-                  </td>
-              </tr>
+                  <form action="/deleteEvent/<%= row.event_id %>" method="POST" style="display:inline;">
+                    <button type="submit">Delete Event</button>
+                  </form>
+                </td>
+                <td>
+                  <button class="view-volunteers-btn">View Volunteers</button>
+                </td>
+              <tr class="volunteer-list-row">
+                <td colspan="11">
+                  <div class="volunteer-list">
+                    <h3>Volunteers for <%= row.event_name %></h3>
+                    <table class="volunteer-table">
+                      <thead>
+                        <tr>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Email</th>
+                          <th>Phone</th>
+                          <th>Sewing Machines</th>
+                          <th>Sergers</th>
+                          <th>Time Commitment</th>
+                          <th>Sewing Level</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% if (ev.length > 0) { %>
+                          <% ev.filter(rev => rev.event_id === row.event_id).forEach(rev => { %>
+                        <!-- Example row - Replace with actual data from database -->
+                        <tr>
+                          <td><%= rev.vol_first_name %> </td>
+                          <td><%= rev.vol_last_name %></td>
+                          <td><%= rev.vol_email %></td>
+                          <td><%= rev.vol_phone %></td>
+                          <td><%= rev.sewing_machines_bringing %></td>
+                          <td><%= rev.sergers_bringing %></td>
+                          <td><%= rev.time_committment %></td>
+                          <td><%= rev.vol_sewing_level %></td>
+                        </tr>
+                     <% })} %>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
             <% }) %>
           <% } else { %>
             <!--No data message-->
@@ -128,7 +193,6 @@
       </form>
       </div>
 </body>
-
 
 
 <!-- Footer Component -->
@@ -197,6 +261,29 @@
                 dropdown.classList.remove('active');
             });
         }
+    });
+
+    //ADDED
+    document.addEventListener('DOMContentLoaded', () => {
+    const viewVolunteerButtons = document.querySelectorAll('.view-volunteers-btn');
+
+    viewVolunteerButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const row = e.target.closest('tr');
+            const volunteerListRow = row.nextElementSibling;
+            
+            // Hide all other volunteer lists
+            document.querySelectorAll('.volunteer-list-row').forEach(listRow => {
+                if (listRow !== volunteerListRow) {
+                    listRow.style.display = 'none';
+                }
+            });
+
+            // Toggle current volunteer list
+            volunteerListRow.style.display = 
+                volunteerListRow.style.display === 'table-row' ? 'none' : 'table-row';
+        });
+      });
     });
 </script>
 </html>
